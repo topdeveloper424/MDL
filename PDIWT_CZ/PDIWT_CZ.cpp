@@ -1,7 +1,14 @@
 #include "PDIWT_CZ.h"
 #include "CzType1.h"
-void CreateType1DB(WCharCP unparsed) {}
-void CreateType1BDun(WCharCP unparsed) { }
+void CreateType1DB(WCharCP unparsed) 
+{
+
+}
+void CreateType1BDun(WCharCP unparsed) 
+{ 
+	CzType1 cz;
+	cz.CreateBDun();
+}
 void CreateType1MK(WCharCP unparsed) {  }
 void CreateType1SSLD(WCharCP unparsed) {}
 void CreateType1XNG(WCharCP unparsed) {}
