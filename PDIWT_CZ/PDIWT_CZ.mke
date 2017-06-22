@@ -20,7 +20,7 @@ langSpec        = $(baseDir)
 mdlapps         = $(MS)Mdlapps/
 
 
-nameToDefine = __HELLOWORLD_BUILD__
+nameToDefine = __PDIWTCZ_BUILD__
 %include $(mdlMki)cdefapnd.mki
 
 PolicyFile = MicroStationPolicy.mki
@@ -34,7 +34,7 @@ mdlInc      = $(MSMDE)include/
 
 %include $(mdlMki)mdl.mki
 
-o = $(MSMDE_OUTPUT)objects/HelloWorldOut/
+o = $(MSMDE_OUTPUT)objects/PDIWTCZOut/
 
 genSrc = $(o)
 
