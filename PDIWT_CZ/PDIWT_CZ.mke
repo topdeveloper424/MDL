@@ -1,0 +1,143 @@
+#--------------------------------------------------------------------------------------
+#
+#
+#  $Copyright: (c) 2015 HCHX Systems, Incorporated. All rights reserved. $
+#
+#--------------------------------------------------------------------------------------
+appName         = PDIWT_CZ
+sAppName        = PDIWT_CZ
+#MS = C:/PROGRA~1/Bentley/MICROS~1/MICROS~1/
+
+
+%warn MS=$(MS)
+%warn MSMDE=$(MSMDE)
+%warn MSMDE_OUTPUT=$(MSMDE_OUTPUT)
+
+baseDir         = $(_MakeFilePath)
+includeDir      = $(baseDir)
+sourceDir       = $(baseDir)
+langSpec        = $(baseDir)
+mdlapps         = $(MS)Mdlapps/
+
+
+nameToDefine = __HELLOWORLD_BUILD__
+%include $(mdlMki)cdefapnd.mki
+
+PolicyFile = MicroStationPolicy.mki
+
+DEFAULT_TARGET_PROCESSOR_ARCHITECTURE=x64
+
+mdlMki      = $(MSMDE)mki/
+mdlLibs     = $(MSMDE)library/
+mdlInc      = $(MSMDE)include/
+
+
+%include $(mdlMki)mdl.mki
+
+o = $(MSMDE_OUTPUT)objects/HelloWorldOut/
+
+genSrc = $(o)
+
+mdlapps         = $(MS)Mdlapps/
+
+#----------------------------------------------------------------------
+# Create needed output directories if they don't exist
+#----------------------------------------------------------------------
+always:
+    !~@mkdir $(o)
+    !~@mkdir $(rscObjects)
+    !~@mkdir $(reqdObjs)
+
+dirToSearch = $(genSrc)
+%include $(mdlMki)cincapnd.mki
+
+dirToSearch = $(mdlInc)
+%include $(mdlMki)cincapnd.mki
+
+
+dirToSearch = $(baseDir)
+%include $(mdlMki)cincapnd.mki
+
+dirToSearch = $(MSMDE)mki/
+%include cincapnd.mki
+
+dirToSearch = $(MSMDE)include/
+%include cincapnd.mki
+
+#----------------------------------------------------------------------
+# Define macros for files included in our link and resource merge
+#----------------------------------------------------------------------
+#appRscs         = $(rscObjects)$(sAppName)cmd.rsc	$(rscObjects)$(appName).rsc	$(rscObjects)$(appName)msg.rsc
+appRscs         = $(rscObjects)$(sAppName)cmd.rsc  $(rscObjects)$(appName).rsc
+#appRscs         = $(rscObjects)$(appName).rsc
+
+
+#-----------------------------------------------------------------------
+# Generate non-language resource files // create commandTable and headerfile
+#-----------------------------------------------------------------------
+$(baseDir)$(sAppName)cmd.h   : $(baseDir)$(appName)cmd.r
+
+$(rscObjects)$(sAppName)cmd.rsc  : $(baseDir)$(appName)cmd.r
+
+$(rscObjects)$(appName).rsc : $(baseDir)$(appName).r
+
+
+#-----------------------------------------------------------------------
+#   Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
+#-----------------------------------------------------------------------
+
+DLM_NAME                = $(appName)
+DLM_DEST                = $(mdlapps)
+DLM_EXPORT_DEST         = $(mdlapps)
+DLM_OBJECT_FILES        = $(MultiCompileObjectList)
+DLM_OBJECT_DEST         = $(o)
+DLM_SPECIAL_LINKOPT     = -fixed:no # Notify linker this library does not require a fixed base address to load
+DLM_NO_DLS              = 0         # USE DLLEXPORT IN .CPP
+DLM_NO_DEF              = 1
+DLM_NOENTRY             = 1
+DLM_NO_MANIFEST         = 1         # If not set linker embeds your current (developer) patched MSVCRT version manifest in output dll.  This is not desirable and produces side-by-side CLIENT ERROR: 14001)
+DLM_NO_SIGN             = 1         # If not set and no certificate found, ERROR: 'singleton' is not recognized as an internal or external command
+%include				dlmAllLibs.mki
+
+#------------------------------------------------
+# Compile the source files for the DLM
+#------------------------------------------------
+MultiCompileDepends = $(_MakeFileSpec)
+%include MultiCppCompileRule.mki
+
+$(o)$(appName)$(oext)		: $(sourceDir)$(appName).cpp  ${MultiCompileDepends}    $(allDepends)
+
+$(o)CzType1$(oext)			: $(sourceDir)CzType1.cpp  ${MultiCompileDepends}    $(allDepends)
+
+%include MultiCppCompileGo.mki
+
+CCPchOpts =
+
+always:
+    !~@mkdir $(DLM_DEST)
+
+%include $(mdlMki)dlmlink.mki
+
+#----------------------------------------------------------------------
+# Link the MA
+#----------------------------------------------------------------------
+MA_NAME         = $(appName)
+RIGHTSCOMPLIANT = false
+MA_DEST         = $(mdlApps)
+MA_RSC_FILES    = $(rscObjects)$(sAppName)cmd.rsc
+MA_NO_VERSION   = 1
+MA_EXT          = .ma
+cmdFile         = $(o)$(MA_NAME)link.cmd
+
+#-----------------------------------------------------------------------
+# Merge Objects into one file
+#-----------------------------------------------------------------------
+#$(reqdObjs)$(appName).mi : $(appRscs)
+"$(MA_DEST)$(MA_NAME)$(MA_EXT)" : $(appRscs)
+    $(msg)        
+    >$(o)make.opt
+    -o$@
+    $(appRscs)
+    <
+    $(RLibCmd) @$(o)make.opt
+    ~time
