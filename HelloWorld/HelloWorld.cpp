@@ -1,29 +1,14 @@
-//#pragma once
-#include <Mstn\MstnDefs.h>
-#include <Mstn\MstnPlatformAPI.h>
-#include <Mstn\PSolid\mssolid.h>
-#include <Mstn\PSolid\mssolid.fdf>
-#include <DgnPlatform\DgnPlatformApi.h>
+#include "HelloWorld.h"
 
-#include <iostream>
-#include <list>
-#include <algorithm>
 #include "scanClass.h"
-#include "HelloWorldcmd.h"
 #include "PlaceLineTool.h"
+#include "FloodTool.h"
 // 由mke文件中的
 // $(genSrc)$(sAppName)cmd.h   : $(baseDir)$(appName)cmd.r
 // 生成
-
-USING_NAMESPACE_BENTLEY
-USING_NAMESPACE_BENTLEY_DGNPLATFORM
-USING_NAMESPACE_BENTLEY_MSTNPLATFORM
-USING_NAMESPACE_BENTLEY_MSTNPLATFORM_ELEMENT
 using namespace std;
 
 double UPM = 0;
-
-int Scan_refCallback(ElementRefP, CallbackArgP, ScanCriteriaP);
 
 void CreateAComplexShape(DPoint3d* basePtP)
 {
@@ -265,6 +250,11 @@ void CreateLineTool(WCharCP unparsed)
 	CreateLine2Tool::InstallNewInstance(CMDNAME_PlaceBsSurfaceTool, PROMPT_FirstPoint);
 }
 
+void StartFloodTool(WCharCP unparsed)
+{
+	FloodTool::InstallNewInstance(CMDNAME_FloodTool);
+}
+
 static MdlCommandNumber s_commandNumbers[] =
 {
 	{ OutPutMsg, CMD_PDIWT_SHOWMSGDIALOG_CASE1 },
@@ -272,6 +262,8 @@ static MdlCommandNumber s_commandNumbers[] =
 	{ ScanTest,  CMD_PDIWT_SCANTEST },
 	{ StartTool, CMD_PDIWT_STARTTOOL},
 	{ CreateLineTool, CMD_PDIWT_CREATELINETOOL },
+	{ StartFloodTool, CMD_PDIWT_FLOODTOOL},
+	{ StartMoveTool, CMD_PDIWT_MOVETOOL},
 	{ TestCase1, CMD_TEST_CASE1 },
 	{ TestCase2, CMD_TEST_CASE2 },
 	{ TestCase3, CMD_TEST_CASE3 },

@@ -4,6 +4,8 @@
 #define STRINGLISTID_Prompts	1
 
 #define CMDNAME_PlaceBsSurfaceTool	1
+#define	CMDNAME_FloodTool			2
+#define CMDNAME_MoveTool			3
 
 #define PROMPT_FirstPoint			1
 #define PROMPT_NextPoint			2

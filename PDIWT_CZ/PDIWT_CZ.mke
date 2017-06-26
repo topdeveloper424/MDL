@@ -7,7 +7,7 @@
 appName         = PDIWT_CZ
 sAppName        = PDIWT_CZ
 #MS = C:/PROGRA~1/Bentley/MICROS~1/MICROS~1/
-
+BOOST = C:/local/boost_1_64_0/
 
 %warn MS=$(MS)
 %warn MSMDE=$(MSMDE)
@@ -62,6 +62,9 @@ dirToSearch = $(MSMDE)mki/
 %include cincapnd.mki
 
 dirToSearch = $(MSMDE)include/
+%include cincapnd.mki
+
+dirToSearch = $(BOOST)
 %include cincapnd.mki
 
 #----------------------------------------------------------------------

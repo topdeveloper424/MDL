@@ -115,7 +115,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FloodTool.cpp" />
     <ClCompile Include="HelloWorld.cpp" />
+    <ClCompile Include="MoveTool.cpp" />
     <ClCompile Include="PlaceLineTool.cpp" />
     <ClCompile Include="scanClass.cpp" />
   </ItemGroup>
@@ -135,6 +137,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FloodTool.h" />
+    <ClInclude Include="HelloWorld.h" />
     <ClInclude Include="HelloWorldids.h" />
     <ClInclude Include="PlaceLineTool.h" />
     <ClInclude Include="scanClass.h" />

@@ -16,6 +16,8 @@ MessageList STRINGLISTID_Commands =
 {
 	{
 		{CMDNAME_PlaceBsSurfaceTool, "创建线"},
+		{CMDNAME_FloodTool,	"创建面域"},
+		{CMDNAME_MoveTool,"移动物体"},
 	}
 };
 

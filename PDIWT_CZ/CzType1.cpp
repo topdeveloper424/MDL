@@ -3,6 +3,7 @@
 CzType1::CzType1()
 {
 	bduninfo = { 300,200,100,400,500 };
+	UPM = mdlModelRef_getUorPerMaster(ACTIVEMODEL);
 }
 
 
@@ -36,7 +37,27 @@ StatusInt CzType1::CreateBDun()
 
 StatusInt CzType1::CreateDB()
 {
-	mdlDialog_openInfoBox(L"Great");
+	boost::timer t;
+
+	BODY_TAG body1, body2,body3;
+	MSElementDescrP edp,edp2;
+	double radius = 10 * UPM, radius_KI;
+	mdlSolid_beginCurrTrans(ACTIVEMODEL);
+	mdlCurrTrans_translateOrigin(new DPoint3d{ 100,0,0 });
+	mdlCurrTrans_invScaleDoubleArray(&radius_KI, &radius, 1);
+
+	mdlSolid_makeSphere(&body1, radius_KI);
+	mdlSolid_makeCuboid(&body2, 1.5*radius_KI, 1.5*radius_KI, 1.5*radius_KI);
+	mdlSolid_makePrism(&body3, radius_KI, radius_KI, 40);
+	mdlSolid_unite(body2, body1);
+	mdlSolid_endCurrTrans();
+	mdlSolid_bodyToElement(&edp, body2, false, -1, -1, 1, NULL, ACTIVEMODEL);
+	mdlSolid_bodyToElement(&edp2, body3, false, -1, -1, -1, NULL, ACTIVEMODEL);
+	mdlElmdscr_add(edp2);
+	//mdlElmdscr_add(edp);
+
+	WPrintfString wpf(L"elapsed -> %0.2f", t.elapsed());
+	mdlDialog_openInfoBox(wpf.c_str());
 	return SUCCESS;
 
 }

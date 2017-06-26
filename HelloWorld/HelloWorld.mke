@@ -112,6 +112,11 @@ $(o)scanClass$(oext)			: $(sourceDir)scanClass.cpp		${MultiCompileDepends}    $(
 
 $(o)PlaceLineTool$(oext)	: $(sourceDir)PlaceLineTool.cpp	${MultiCompileDepends}    $(allDepends) 
 
+$(o)FloodTool$(oext)			: $(sourceDir)FloodTool.cpp	${MultiCompileDepends}    $(allDepends) 
+
+$(o)MoveTool$(oext)			: $(sourceDir)MoveTool.cpp	${MultiCompileDepends}    $(allDepends) 
+
+
 %include MultiCppCompileGo.mki
 
 CCPchOpts =

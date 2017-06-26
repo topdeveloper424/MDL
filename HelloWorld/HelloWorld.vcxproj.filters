@@ -24,6 +24,12 @@
     <ClCompile Include="PlaceLineTool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="FloodTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="HelloWorld.mke" />
@@ -45,6 +51,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="PlaceLineTool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FloodTool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloWorld.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

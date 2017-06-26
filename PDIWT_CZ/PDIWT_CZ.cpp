@@ -1,12 +1,15 @@
 #include "PDIWT_CZ.h"
 #include "CzType1.h"
+
+CzType1 cz;
+
+
 void CreateType1DB(WCharCP unparsed) 
 {
-
+	cz.CreateDB();
 }
 void CreateType1BDun(WCharCP unparsed) 
 { 
-	CzType1 cz;
 	cz.CreateBDun();
 }
 void CreateType1MK(WCharCP unparsed) {  }
@@ -18,7 +21,6 @@ void CreateType2BDun(WCharCP unparsed) {}
 void CreateType2MK(WCharCP unparsed) {}
 void CreateType2SSLD(WCharCP unparsed) {}
 void CreateType2XNG(WCharCP unparsed) {}
-
 
 extern "C" void MdlMain(int argc, WCharCP argv[])
 {

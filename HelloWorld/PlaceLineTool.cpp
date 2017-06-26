@@ -119,6 +119,7 @@ void PlaceLineTool::InstallNewInstance(int toolId, int toolPrompt)
 	tool->InstallTool();
 }
 
+
 void CreateLine2Tool::_OnPostInstall()
 {
 	AccuSnap::GetInstance().EnableSnap(true);

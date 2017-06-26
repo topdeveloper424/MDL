@@ -1,8 +1,12 @@
 #pragma once
+#include <Mstn\MstnDefs.h>
 #include <Mstn\MdlApi\MdlApi.h>
 #include <Mstn\MstnPlatformAPI.h>
-#include <Mstn\MstnDefs.h>
 #include <DgnPlatform\DgnPlatformApi.h>
+#include <Mstn\PSolid\mssolid.h>
+#include <Mstn\PSolid\mssolid.fdf>
+
+#include <boost/timer.hpp>
 
 USING_NAMESPACE_BENTLEY
 USING_NAMESPACE_BENTLEY_DGNPLATFORM
@@ -30,6 +34,7 @@ public:
 	StatusInt CreateXNG();
 private:
 	BDunInfo bduninfo;
+	double UPM;
 };
 
 
