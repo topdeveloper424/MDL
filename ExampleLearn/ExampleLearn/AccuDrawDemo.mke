@@ -4,8 +4,8 @@
 #  $Copyright: (c) 2015 HCHX Systems, Incorporated. All rights reserved. $
 #
 #--------------------------------------------------------------------------------------
-appName         = HelloWorld
-sAppName        = HelloWorld
+appName         = AcuuDrawDemo
+sAppName        = AcuuDrawDemo
 #MS = C:/PROGRA~1/Bentley/MICROS~1/MICROS~1/
 
 
@@ -20,7 +20,7 @@ langSpec        = $(baseDir)
 mdlapps         = $(MS)Mdlapps/
 
 
-nameToDefine = __HELLOWORLD_BUILD__
+nameToDefine = __ACCUDRAWDEMO_BUILD__
 %include $(mdlMki)cdefapnd.mki
 
 PolicyFile = MicroStationPolicy.mki
@@ -34,7 +34,7 @@ mdlInc      = $(MSMDE)include/
 
 %include $(mdlMki)mdl.mki
 
-o = $(MSMDE_OUTPUT)objects/HelloWorldOut/
+o = $(MSMDE_OUTPUT)objects/AccuDrawDemo/
 
 genSrc = $(o)
 
@@ -54,7 +54,6 @@ dirToSearch = $(genSrc)
 dirToSearch = $(mdlInc)
 %include $(mdlMki)cincapnd.mki
 
-
 dirToSearch = $(baseDir)
 %include $(mdlMki)cincapnd.mki
 
@@ -67,7 +66,7 @@ dirToSearch = $(MSMDE)include/
 #----------------------------------------------------------------------
 # Define macros for files included in our link and resource merge
 #----------------------------------------------------------------------
-appRscs         = $(rscObjects)$(sAppName)cmd.rsc	$(rscObjects)$(appName).rsc		$(rscObjects)$(appName)msg.rsc
+appRscs         = $(rscObjects)$(sAppName)cmd.rsc	$(rscObjects)$(appName).rsc	$(rscObjects)$(appName)msg.rsc
 #appRscs         = $(rscObjects)$(sAppName)cmd.rsc  $(rscObjects)$(appName).rsc
 #appRscs         = $(rscObjects)$(appName).rsc
 
@@ -75,13 +74,12 @@ appRscs         = $(rscObjects)$(sAppName)cmd.rsc	$(rscObjects)$(appName).rsc		$
 #-----------------------------------------------------------------------
 # Generate non-language resource files // create commandTable and headerfile
 #-----------------------------------------------------------------------
-$(baseDir)$(sAppName)cmd.h   : $(baseDir)$(appName)cmd.r
+$(genSrc)$(sAppName)cmd.h   : $(baseDir)$(appName)cmd.r
 
 $(rscObjects)$(sAppName)cmd.rsc  : $(baseDir)$(appName)cmd.r
 
 $(rscObjects)$(appName).rsc : $(baseDir)$(appName).r
 
-$(rscObjects)$(sAppName)msg.rsc	: $(baseDir)$(sAppName)msg.r $(baseDir)$(sAppName)ids.h
 
 #-----------------------------------------------------------------------
 #   Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
@@ -106,17 +104,7 @@ DLM_NO_SIGN             = 1         # If not set and no certificate found, ERROR
 MultiCompileDepends = $(_MakeFileSpec)
 %include MultiCppCompileRule.mki
 
-$(o)$(appName)$(oext)			: $(sourceDir)$(appName).cpp	${MultiCompileDepends}    $(allDepends)
-
-$(o)scanClass$(oext)			: $(sourceDir)scanClass.cpp		${MultiCompileDepends}    $(allDepends)
-
-$(o)PlaceLineTool$(oext)	: $(sourceDir)PlaceLineTool.cpp	${MultiCompileDepends}    $(allDepends) 
-
-$(o)FloodTool$(oext)			: $(sourceDir)FloodTool.cpp	${MultiCompileDepends}    $(allDepends) 
-
-$(o)MoveTool$(oext)			: $(sourceDir)MoveTool.cpp	${MultiCompileDepends}    $(allDepends) 
-
-$(o)ModifyTool$(oext)			: $(sourceDir)ModifyTool.cpp	${MultiCompileDepends}    $(allDepends) 
+$(o)$(appName)$(oext)                       : $(sourceDir)$(appName).cpp  ${MultiCompileDepends}    $(allDepends)
 
 %include MultiCppCompileGo.mki
 

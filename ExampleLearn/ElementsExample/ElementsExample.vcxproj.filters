@@ -15,52 +15,37 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HelloWorld.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scanClass.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaceLineTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="FloodTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ModifyTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HelloWorld.mke" />
-    <None Include="HelloWorldcmd.r">
+    <None Include="ElementsExample.mke" />
+    <None Include="chinese\ElementsExamplemsg.r">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="HelloWorld.r">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="HelloWorldmsg.r">
+    <None Include="ElementsExamplecmd.r">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="scanClass.h">
+    <ClInclude Include="ElementsExampleids.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="HelloWorldids.h">
+    <ClInclude Include="ElementsExample.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PlaceLineTool.h">
+    <ClInclude Include="ElementsExamplecmd.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FloodTool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HelloWorld.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ElementsExample.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementsExampleCreateTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementsExampleCopyTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementsExampleQueryTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

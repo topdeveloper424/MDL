@@ -27,6 +27,7 @@ void StartTool(WCharCP );
 void CreateLineTool(WCharCP);
 void StartFloodTool(WCharCP);
 void StartMoveTool(WCharCP);
+void StartModifyTool(WCharCP);
 
 void TestCase1(WCharCP);
 void TestCase2(WCharCP);

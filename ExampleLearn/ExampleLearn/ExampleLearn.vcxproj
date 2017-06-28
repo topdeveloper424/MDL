@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FDF9C122-D9B2-4F60-9D62-2E81C91D0DED}</ProjectGuid>
-    <RootNamespace>HelloWorld</RootNamespace>
+    <ProjectGuid>{e0f11642-d00e-48ce-ab16-e63bd1bdce04}</ProjectGuid>
+    <RootNamespace>ExampleLearn</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>AccuDrawDemo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,9 +72,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -115,34 +113,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FloodTool.cpp" />
-    <ClCompile Include="HelloWorld.cpp" />
-    <ClCompile Include="ModifyTool.cpp" />
-    <ClCompile Include="MoveTool.cpp" />
-    <ClCompile Include="PlaceLineTool.cpp" />
-    <ClCompile Include="scanClass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HelloWorld.mke">
+    <None Include="AccuDrawDemo.mke">
       <SubType>
       </SubType>
     </None>
-    <None Include="HelloWorld.r">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="HelloWorldcmd.r" />
-    <None Include="HelloWorldmsg.r">
-      <SubType>
-      </SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FloodTool.h" />
-    <ClInclude Include="HelloWorld.h" />
-    <ClInclude Include="HelloWorldids.h" />
-    <ClInclude Include="PlaceLineTool.h" />
-    <ClInclude Include="scanClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

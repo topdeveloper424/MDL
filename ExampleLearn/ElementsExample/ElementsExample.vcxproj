@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FDF9C122-D9B2-4F60-9D62-2E81C91D0DED}</ProjectGuid>
-    <RootNamespace>HelloWorld</RootNamespace>
+    <ProjectGuid>{13f6af5d-e28f-46ba-86ab-1f55071e2879}</ProjectGuid>
+    <RootNamespace>ElementsExample</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,15 +71,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -115,34 +116,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FloodTool.cpp" />
-    <ClCompile Include="HelloWorld.cpp" />
-    <ClCompile Include="ModifyTool.cpp" />
-    <ClCompile Include="MoveTool.cpp" />
-    <ClCompile Include="PlaceLineTool.cpp" />
-    <ClCompile Include="scanClass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HelloWorld.mke">
+    <None Include="chinese\ElementsExamplemsg.r" />
+    <None Include="ElementsExample.mke">
       <SubType>
       </SubType>
     </None>
-    <None Include="HelloWorld.r">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="HelloWorldcmd.r" />
-    <None Include="HelloWorldmsg.r">
+    <None Include="ElementsExamplecmd.r">
       <SubType>
       </SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FloodTool.h" />
-    <ClInclude Include="HelloWorld.h" />
-    <ClInclude Include="HelloWorldids.h" />
-    <ClInclude Include="PlaceLineTool.h" />
-    <ClInclude Include="scanClass.h" />
+    <ClInclude Include="ElementsExample.h" />
+    <ClInclude Include="ElementsExamplecmd.h" />
+    <ClInclude Include="ElementsExampleids.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ElementsExample.cpp" />
+    <ClCompile Include="ElementsExampleCopyTool.cpp" />
+    <ClCompile Include="ElementsExampleCreateTool.cpp" />
+    <ClCompile Include="ElementsExampleQueryTool.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

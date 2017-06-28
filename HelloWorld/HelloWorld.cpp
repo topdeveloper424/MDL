@@ -13,18 +13,18 @@ double UPM = 0;
 void CreateAComplexShape(DPoint3d* basePtP)
 {
 	MSElement el;
-	MSElementDescrP edP = NULL;
+	MSElementDescrP edP = nullptr;
 	DPoint3d pts[3], tmpPt;
 	mdlComplexChain_createHeader(&el, true, 1);
-	mdlElmdscr_new(&edP, NULL, &el);
+	mdlElmdscr_new(&edP, nullptr, &el);
 	pts[0] = pts[1] = pts[2] = *basePtP;
 	pts[1].x += UPM*0.3; pts[1].y += UPM*0.7;
 	pts[2].x += UPM; pts[2].y += UPM;
-	mdlArc_createByPoints(&el, NULL, pts);
+	mdlArc_createByPoints(&el, nullptr, pts);
 	mdlElmdscr_appendElement(edP, &el);
 	tmpPt = pts[0]; pts[0] = pts[2]; pts[2] = tmpPt;
 	pts[1].x = pts[0].x; pts[1].y = pts[2].y;
-	mdlLineString_create(&el, NULL, pts, 3);
+	mdlLineString_create(&el, nullptr, pts, 3);
 	mdlElmdscr_appendElement(edP, &el);
 	EditElementHandle eeh(edP, true, false, ACTIVEMODEL);
 	eeh.AddToModel();
@@ -33,14 +33,14 @@ void CreateAComplexShape(DPoint3d* basePtP)
 void CreateSolid(DPoint3d* basePt)
 {
 	DPoint3d pts[3], endPt;
-	MSElementDescrP sectionEdp = NULL, SolidEdp = NULL;
+	MSElementDescrP sectionEdp = nullptr, SolidEdp = nullptr;
 	pts[0] = pts[1] = pts[2] = endPt = *basePt;
 	double lng = 5 * UPM;
 	pts[1].x = pts[2].x = (pts[2].x + lng);
 	pts[1].y = pts[2].y + lng;
 	endPt.z += 10 * UPM;
-	mdlElmdscr_createFromVertices(&sectionEdp, NULL, pts, 3, true, 1);
-	mdlSurface_project(&SolidEdp, sectionEdp, pts, &endPt, NULL);
+	mdlElmdscr_createFromVertices(&sectionEdp, nullptr, pts, 3, true, 1);
+	mdlSurface_project(&SolidEdp, sectionEdp, pts, &endPt, nullptr);
 	mdlElmdscr_freeAll(&sectionEdp);
 	EditElementHandle eeh(SolidEdp, true, false, ACTIVEMODEL);
 	eeh.AddToModel();
@@ -58,7 +58,7 @@ void CreateKISolid()
 	mdlSolid_makeCuboid(&body2, 1.5*radius_KI, 1.5*radius_KI, 1.5*radius_KI);
 	mdlSolid_unite(body2, body1);
 	mdlSolid_endCurrTrans();
-	mdlSolid_bodyToElement(&edp, body2, false, -1, -1, 1, NULL, ACTIVEMODEL);
+	mdlSolid_bodyToElement(&edp, body2, false, -1, -1, 1, nullptr, ACTIVEMODEL);
 
 	EditElementHandle eeh(edp, true, false);
 	eeh.AddToModel();
@@ -213,6 +213,7 @@ void TestCase3(WCharCP unparsed)
 	//{
 	//	swprintf(numstr, L"Not Found the ElementID %d tail Element of %d elements!",elelist.GetFirst()->GetElementId(),elelist.size());
 	//}
+	mdlDialog_beep(1, 1, 1);
 	mdlDialog_dmsgsPrint(wss.str().c_str());
 }
 
@@ -264,10 +265,11 @@ static MdlCommandNumber s_commandNumbers[] =
 	{ CreateLineTool, CMD_PDIWT_CREATELINETOOL },
 	{ StartFloodTool, CMD_PDIWT_FLOODTOOL},
 	{ StartMoveTool, CMD_PDIWT_MOVETOOL},
+	{ StartModifyTool, CMD_PDIWT_MODIFYTOOL},
 	{ TestCase1, CMD_TEST_CASE1 },
 	{ TestCase2, CMD_TEST_CASE2 },
 	{ TestCase3, CMD_TEST_CASE3 },
-	0
+	nullptr
 };
 
 extern "C" void MdlMain(int argc, WCharCP argv[])
@@ -275,12 +277,12 @@ extern "C" void MdlMain(int argc, WCharCP argv[])
 	UPM = mdlModelRef_getUorPerMaster(ACTIVEMODEL);
 
 	RscFileHandle rfHandle;
-	if (mdlResource_openFile(&rfHandle, NULL, RSC_READONLY))
+	if (mdlResource_openFile(&rfHandle, nullptr, RSC_READONLY))
 	{
 		mdlOutput_errorU(L"无法打开资源文件");
 		mdlSystem_exit(-1, 1);
 	}
 	mdlState_registerStringIds(STRINGLISTID_Commands, STRINGLISTID_Prompts);
 	mdlSystem_registerCommandNumbers(s_commandNumbers);
-	mdlParse_loadCommandTable(NULL);
+	mdlParse_loadCommandTable(nullptr);
 }
