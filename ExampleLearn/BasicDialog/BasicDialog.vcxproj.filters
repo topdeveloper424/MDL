@@ -15,6 +15,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AccuDrawDemo.mke" />
+    <None Include="BasicDialog.mke" />
+    <None Include="BasicDialogType.mt">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="chinese\BasicDialogmsg.r">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="BasicDialog.r">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="BasicDialogcmd.r">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BasicDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chinese\BasicDialogtxt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicDialogcmd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BasicDialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

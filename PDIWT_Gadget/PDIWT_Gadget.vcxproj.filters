@@ -15,34 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ElementsExample.mke" />
-    <None Include="ElementsExamplecmd.r">
+    <ClInclude Include="PDIWT_Gadget.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PDIWT_Gadgetids.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PDIWT_Gadgetcmd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chinese\PDIWT_Gadgettxt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PDIWT_Gadget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ParallelAreaTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PDIWT_Gadgetcmd.r">
       <Filter>资源文件</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ElementsExampleids.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ElementsExample.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ElementsExamplecmd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ElementsExample.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ElementsExampleCreateTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ElementsExampleCopyTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ElementsExampleQueryTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <None Include="PDIWT_Gadgettype.mt">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="PDIWT_Gadget.r">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="chinese\PDIWT_Gadgetmsg.r">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="PDIWT_Gadgetui.r">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="PDIWT_Gadget.mke" />
   </ItemGroup>
 </Project>

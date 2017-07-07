@@ -19,10 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{e0f11642-d00e-48ce-ab16-e63bd1bdce04}</ProjectGuid>
-    <RootNamespace>ExampleLearn</RootNamespace>
+    <ProjectGuid>{58d9454f-5b10-4abb-a03f-3942c281f065}</ProjectGuid>
+    <RootNamespace>BasicDialogBox</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>AccuDrawDemo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,6 +71,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(MSSDKINC);$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -113,10 +115,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="AccuDrawDemo.mke">
+    <None Include="BasicDialog.mke">
       <SubType>
       </SubType>
     </None>
+    <None Include="BasicDialog.r" />
+    <None Include="BasicDialogcmd.r" />
+    <None Include="BasicDialogType.mt" />
+    <None Include="chinese\BasicDialogmsg.r" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BasicDialog.h" />
+    <ClInclude Include="BasicDialogcmd.h" />
+    <ClInclude Include="chinese\BasicDialogtxt.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BasicDialog.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

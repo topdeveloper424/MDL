@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{13f6af5d-e28f-46ba-86ab-1f55071e2879}</ProjectGuid>
-    <RootNamespace>ElementsExample</RootNamespace>
+    <ProjectGuid>{ACDFBB01-B48C-4390-A3C0-CD1D473D6682}</ProjectGuid>
+    <RootNamespace>PDIWT_Gadget</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -38,7 +38,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -68,11 +68,8 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files\Bentley\MicroStationCONNECTSDK\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSSDKINC);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,10 +77,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -119,22 +112,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ElementsExample.mke">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="ElementsExamplecmd.r" />
+    <ClInclude Include="chinese\PDIWT_Gadgettxt.h" />
+    <ClInclude Include="PDIWT_Gadget.h" />
+    <ClInclude Include="PDIWT_Gadgetcmd.h" />
+    <ClInclude Include="PDIWT_Gadgetids.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ElementsExample.h" />
-    <ClInclude Include="ElementsExamplecmd.h" />
-    <ClInclude Include="ElementsExampleids.h" />
+    <ClCompile Include="ParallelAreaTool.cpp" />
+    <ClCompile Include="PDIWT_Gadget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ElementsExample.cpp" />
-    <ClCompile Include="ElementsExampleCopyTool.cpp" />
-    <ClCompile Include="ElementsExampleCreateTool.cpp" />
-    <ClCompile Include="ElementsExampleQueryTool.cpp" />
+    <None Include="chinese\PDIWT_Gadgetmsg.r" />
+    <None Include="PDIWT_Gadget.mke" />
+    <None Include="PDIWT_Gadget.r" />
+    <None Include="PDIWT_Gadgetcmd.r" />
+    <None Include="PDIWT_Gadgettype.mt" />
+    <None Include="PDIWT_Gadgetui.r" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

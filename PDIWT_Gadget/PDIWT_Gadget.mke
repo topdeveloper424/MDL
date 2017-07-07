@@ -1,11 +1,15 @@
 #--------------------------------------------------------------------------------------
 #
 #
-#  $Copyright: (c) 2015 HCHX Systems, Incorporated. All rights reserved. $
+#  $Copyright: (c) 2017 PDIWT Systems, Incorporated. All rights reserved. $
 #
 #--------------------------------------------------------------------------------------
-appName         = AcuuDrawDemo
-sAppName        = AcuuDrawDemo
+
+
+#----------------------------------------------------------------------
+# Variable Defination
+#----------------------------------------------------------------------
+appName         = PDIWT_Gadget
 #MS = C:/PROGRA~1/Bentley/MICROS~1/MICROS~1/
 
 
@@ -16,11 +20,11 @@ sAppName        = AcuuDrawDemo
 baseDir         = $(_MakeFilePath)
 includeDir      = $(baseDir)
 sourceDir       = $(baseDir)
-langSpec        = $(baseDir)
+langSpec        = $(baseDir)chinese/
 mdlapps         = $(MS)Mdlapps/
 
 
-nameToDefine = __ACCUDRAWDEMO_BUILD__
+nameToDefine = __$(appName)_BUILD__
 %include $(mdlMki)cdefapnd.mki
 
 PolicyFile = MicroStationPolicy.mki
@@ -34,7 +38,7 @@ mdlInc      = $(MSMDE)include/
 
 %include $(mdlMki)mdl.mki
 
-o = $(MSMDE_OUTPUT)objects/AccuDrawDemo/
+o = $(MSMDE_OUTPUT)objects/$(appName)/
 
 genSrc = $(o)
 
@@ -48,11 +52,15 @@ always:
     !~@mkdir $(rscObjects)
     !~@mkdir $(reqdObjs)
 
+#----------------------------------------------------------------------
+# Inlucde the Heaher files
+#----------------------------------------------------------------------
 dirToSearch = $(genSrc)
 %include $(mdlMki)cincapnd.mki
 
 dirToSearch = $(mdlInc)
 %include $(mdlMki)cincapnd.mki
+
 
 dirToSearch = $(baseDir)
 %include $(mdlMki)cincapnd.mki
@@ -63,27 +71,44 @@ dirToSearch = $(MSMDE)mki/
 dirToSearch = $(MSMDE)include/
 %include cincapnd.mki
 
+#-----------------------------------------------------------------------
+# Generate app res using rcomp
+#-----------------------------------------------------------------------
+$(rscObjects)$(appName).rsc		:	$(baseDir)$(appName).r
+#-----------------------------------------------------------------------
+# Generate commandTable and headerfile using rcomp
+#-----------------------------------------------------------------------
+$(baseDir)$(appName)cmd.h		: $(baseDir)$(appName)cmd.r #$(baseDir)$(appName)ids.h
+
+$(rscObjects)$(appName)cmd.rsc  : $(baseDir)$(appName)cmd.r #$(baseDir)$(appName)ids.h
+
+#----------------------------------------------------------------------
+# Gernerate language resource file using rcomp
+#----------------------------------------------------------------------
+$(rscObjects)$(appName)msg.rsc	:	$(langSpec)$(appName)msg.r	#$(baseDir)$(appName)ids.h
+
+#----------------------------------------------------------------------
+# Gernerate application's type & resouce file using rsctype & rcomp
+#----------------------------------------------------------------------
+$(rscObjects)$(appName)type.r	:	$(baseDir)$(appName)Type.mt	#$(baseDir)$(appName)ids.h
+
+$(rscObjects)$(appName)type.rsc	:	$(rscObjects)$(appName)Type.r	#$(baseDir)$(appName)ids.h
+
+#----------------------------------------------------------------------
+# Gernate all UI resouce
+#----------------------------------------------------------------------
+$(rscObjects)$(appName)ui.rsc		:	$(baseDir)$(appName)ui.r $(langSpec)$(appName)txt.h $(baseDir)$(appName).h \
+										$(baseDir)$(appName)cmd.h $(baseDir)$(appName)ids.h
+
 #----------------------------------------------------------------------
 # Define macros for files included in our link and resource merge
 #----------------------------------------------------------------------
-appRscs         = $(rscObjects)$(sAppName)cmd.rsc	$(rscObjects)$(appName).rsc	$(rscObjects)$(appName)msg.rsc
-#appRscs         = $(rscObjects)$(sAppName)cmd.rsc  $(rscObjects)$(appName).rsc
-#appRscs         = $(rscObjects)$(appName).rsc
+appRscs         = $(rscObjects)$(appName).rsc	$(rscObjects)$(appName)cmd.rsc  \
+				  $(rscObjects)$(appName)type.rsc	$(rscObjects)$(appName)msg.rsc	$(rscObjects)$(appName)ui.rsc
 
-
-#-----------------------------------------------------------------------
-# Generate non-language resource files // create commandTable and headerfile
-#-----------------------------------------------------------------------
-$(genSrc)$(sAppName)cmd.h   : $(baseDir)$(appName)cmd.r
-
-$(rscObjects)$(sAppName)cmd.rsc  : $(baseDir)$(appName)cmd.r
-
-$(rscObjects)$(appName).rsc : $(baseDir)$(appName).r
-
-
-#-----------------------------------------------------------------------
+#----------------------------------------------------------------------
 #   Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
-#-----------------------------------------------------------------------
+#----------------------------------------------------------------------
 
 DLM_NAME                = $(appName)
 DLM_DEST                = $(mdlapps)
@@ -104,11 +129,11 @@ DLM_NO_SIGN             = 1         # If not set and no certificate found, ERROR
 MultiCompileDepends = $(_MakeFileSpec)
 %include MultiCppCompileRule.mki
 
-$(o)$(appName)$(oext)                       : $(sourceDir)$(appName).cpp  ${MultiCompileDepends}    $(allDepends)
+$(o)$(appName)$(oext)	:	$(sourceDir)$(appName).cpp	${MultiCompileDepends}	$(allDepends)
+
+$(o)ParallelAreaTool$(oext)	:	$(sourceDir)ParallelAreaTool.cpp	${MultiCompileDepends}	$(allDepends)
 
 %include MultiCppCompileGo.mki
-
-CCPchOpts =
 
 always:
     !~@mkdir $(DLM_DEST)
@@ -121,7 +146,7 @@ always:
 MA_NAME         = $(appName)
 RIGHTSCOMPLIANT = false
 MA_DEST         = $(mdlApps)
-MA_RSC_FILES    = $(rscObjects)$(sAppName)cmd.rsc
+MA_RSC_FILES    = $(rscObjects)$(appName)cmd.rsc
 MA_NO_VERSION   = 1
 MA_EXT          = .ma
 cmdFile         = $(o)$(MA_NAME)link.cmd
