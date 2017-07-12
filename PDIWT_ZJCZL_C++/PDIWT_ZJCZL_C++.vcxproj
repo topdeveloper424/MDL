@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ACDFBB01-B48C-4390-A3C0-CD1D473D6682}</ProjectGuid>
-    <RootNamespace>PDIWT_Gadget</RootNamespace>
+    <ProjectGuid>{FE73B1B1-1DC8-4943-8FA4-D3AF6C96FCE1}</ProjectGuid>
+    <RootNamespace>PDIWT_ZJCZL_C</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -38,7 +38,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -112,23 +112,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="chinese\PDIWT_Gadgettxt.h" />
-    <ClInclude Include="PDIWT_Gadget.h" />
-    <ClInclude Include="PDIWT_Gadgetcmd.h" />
-    <ClInclude Include="PDIWT_Gadgetids.h" />
+    <ClCompile Include="DrawPileAxisTool.cpp" />
+    <ClCompile Include="PDIWT_ZJCZL_C++.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LevelBoxUi.cpp" />
-    <ClCompile Include="ParallelAreaTool.cpp" />
-    <ClCompile Include="PDIWT_Gadget.cpp" />
+    <ClInclude Include="chinese\PDIWT_ZJCZL_C++txt.h" />
+    <ClInclude Include="PDIWT_ZJCZL_C++.h" />
+    <ClInclude Include="PDIWT_ZJCZL_C++cmd.h" />
+    <ClInclude Include="PDIWT_ZJCZL_C++ids.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="chinese\PDIWT_Gadgetmsg.r" />
-    <None Include="PDIWT_Gadget.mke" />
-    <None Include="PDIWT_Gadget.r" />
-    <None Include="PDIWT_Gadgetcmd.r" />
-    <None Include="PDIWT_Gadgettype.mt" />
-    <None Include="PDIWT_Gadgetui.r" />
+    <Text Include="PDIWT_ZJCZL_C++.r" />
+    <Text Include="PDIWT_ZJCZL_C++ui.r" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="chinese\PDIWT_ZJCZL_C++msg.r" />
+    <None Include="PDIWT_ZJCZL_C++.mke" />
+    <None Include="PDIWT_ZJCZL_C++cmd.r" />
+    <None Include="PDIWT_ZJCZL_C++type.mt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

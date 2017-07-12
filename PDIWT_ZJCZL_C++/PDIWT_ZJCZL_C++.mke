@@ -9,7 +9,7 @@
 #----------------------------------------------------------------------
 # Variable Defination
 #----------------------------------------------------------------------
-appName         = PDIWT_Gadget
+appName         = PDIWT_ZJCZL_C++
 #MS = C:/PROGRA~1/Bentley/MICROS~1/MICROS~1/
 
 
@@ -39,7 +39,6 @@ mdlInc      = $(MSMDE)include/
 %include $(mdlMki)mdl.mki
 
 o = $(MSMDE_OUTPUT)objects/$(appName)/
-
 genSrc = $(o)
 
 mdlapps         = $(MS)Mdlapps/
@@ -75,36 +74,40 @@ dirToSearch = $(MSMDE)include/
 # Generate app res using rcomp
 #-----------------------------------------------------------------------
 $(rscObjects)$(appName).rsc		:	$(baseDir)$(appName).r
+
 #-----------------------------------------------------------------------
 # Generate commandTable and headerfile using rcomp
 #-----------------------------------------------------------------------
-$(baseDir)$(appName)cmd.h		: $(baseDir)$(appName)cmd.r #$(baseDir)$(appName)ids.h
+$(baseDir)$(appName)cmd.h		: $(baseDir)$(appName)cmd.r
 
-$(rscObjects)$(appName)cmd.rsc  : $(baseDir)$(appName)cmd.r #$(baseDir)$(appName)ids.h
+$(rscObjects)$(appName)cmd.rsc  : $(baseDir)$(appName)cmd.r
 
 #----------------------------------------------------------------------
 # Gernerate language resource file using rcomp
 #----------------------------------------------------------------------
-$(rscObjects)$(appName)msg.rsc	:	$(langSpec)$(appName)msg.r	#$(baseDir)$(appName)ids.h
+$(rscObjects)$(appName)msg.rsc	:	$(langSpec)$(appName)msg.r	$(baseDir)$(appName).h
 
 #----------------------------------------------------------------------
 # Gernerate application's type & resouce file using rsctype & rcomp
 #----------------------------------------------------------------------
-$(rscObjects)$(appName)type.r	:	$(baseDir)$(appName)Type.mt	#$(baseDir)$(appName)ids.h
+$(rscObjects)$(appName)Type.r	:	$(baseDir)$(appName)Type.mt	$(baseDir)$(appName).h
 
-$(rscObjects)$(appName)type.rsc	:	$(rscObjects)$(appName)Type.r	#$(baseDir)$(appName)ids.h
+$(rscObjects)$(appName)Type.rsc	:	$(rscObjects)$(appName)Type.r	$(baseDir)$(appName).h
 
 #----------------------------------------------------------------------
 # Gernate all UI resouce
 #----------------------------------------------------------------------
-$(rscObjects)$(appName)ui.rsc		:	$(baseDir)$(appName)ui.r $(langSpec)$(appName)txt.h $(baseDir)$(appName).h \
-										$(baseDir)$(appName)cmd.h $(baseDir)$(appName)ids.h
+$(rscObjects)$(appName)ui.rsc		:	$(baseDir)$(appName)ui.r $(langSpec)$(appName)txt.h $(baseDir)$(appName)ids.h \
+										$(baseDir)$(appName)cmd.h 
 
 #----------------------------------------------------------------------
 # Define macros for files included in our link and resource merge
 #----------------------------------------------------------------------
-appRscs         = $(rscObjects)$(appName).rsc	$(rscObjects)$(appName)cmd.rsc  \
-				  $(rscObjects)$(appName)type.rsc	$(rscObjects)$(appName)msg.rsc	$(rscObjects)$(appName)ui.rsc
+appRscs         =	$(rscObjects)$(appName).rsc	\
+					$(rscObjects)$(appName)cmd.rsc \
+					$(rscObjects)$(appName)msg.rsc \
+					$(rscObjects)$(appName)ui.rsc \
+					$(rscObjects)$(appName)Type.rsc
 
 #----------------------------------------------------------------------
 #   Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
@@ -131,9 +134,7 @@ MultiCompileDepends = $(_MakeFileSpec)
 
 $(o)$(appName)$(oext)	:	$(sourceDir)$(appName).cpp	${MultiCompileDepends}	$(allDepends)
 
-$(o)ParallelAreaTool$(oext)	:	$(sourceDir)ParallelAreaTool.cpp	${MultiCompileDepends}	$(allDepends)
-
-$(o)LevelBoxUi$(oext)	:	$(sourceDir)LevelBoxUi.cpp	${MultiCompileDepends}	$(allDepends)
+$(o)DrawPileAxisTool$(oext)	:	$(sourceDir)DrawPileAxisTool.cpp	${MultiCompileDepends}	$(allDepends)
 
 %include MultiCppCompileGo.mki
 

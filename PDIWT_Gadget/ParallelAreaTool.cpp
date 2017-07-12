@@ -14,7 +14,7 @@ protected:
 	}
 	virtual bool _WantDynamics() override { return false; }		//不进行动态
 	virtual bool _NeedAcceptPoint() override { return true; }	//不需要额外的点进行确认
-	//virtual UsesDragSelect _AllowDragSelect() override { return UsesDragSelect::USES_DRAGSELECT_Box; }	//允许进行框选
+	virtual UsesDragSelect _AllowDragSelect() override { return UsesDragSelect::USES_DRAGSELECT_Box; }	//允许进行框选
 	virtual void _OnRestartTool()override { InstallNewInstance(GetToolId()); }
 	virtual bool _OnResetButton(DgnButtonEventCR ev) override { _OnRestartTool(); return true; }
 
@@ -86,19 +86,21 @@ bool ParallelAreaTool::_WantAdditionalLocate(DgnButtonEventCP ev)
 
 bool ParallelAreaTool::_FilterAgendaEntries()
 {
-	auto agd = GetElementAgenda();
-	auto number = agd.GetCount();
-	for each (auto ele in agd)
+	bool changed = false;
+	ElementAgendaR agd = GetElementAgenda();
+	size_t number = agd.GetCount();
+	for (size_t i =0;i<number;i++)
 	{
-		int eleType = ele.GetElementType();
-		if (eleType == MSElementTypes::LINE_ELM || eleType == MSElementTypes::LINE_STRING_ELM || eleType == MSElementTypes::CMPLX_STRING_ELM)
+		int eleType = agd[i].GetElementType();
+		if(eleType == MSElementTypes::LINE_ELM || eleType == MSElementTypes::LINE_STRING_ELM || eleType == MSElementTypes::CMPLX_STRING_ELM)
 			continue;
 		else
-			ele.Invalidate();
+		{
+			agd[i].Invalidate();
+			changed = true;
+		}
 	}
-	number++;
-	agd.DropInvalidEntries();
-	return true;
+	return changed;
 }
 
 bool ParallelAreaTool::_OnPostLocate(HitPathCP path, WStringR cantAcceptReason)

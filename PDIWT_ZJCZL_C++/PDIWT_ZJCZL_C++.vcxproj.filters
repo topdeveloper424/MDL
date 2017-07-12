@@ -15,46 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PDIWT_Gadget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PDIWT_Gadgetids.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PDIWT_Gadgetcmd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="chinese\PDIWT_Gadgettxt.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="PDIWT_Gadget.cpp">
+    <ClCompile Include="PDIWT_ZJCZL_C++.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ParallelAreaTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelBoxUi.cpp">
+    <ClCompile Include="DrawPileAxisTool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PDIWT_Gadgetcmd.r">
+    <ClInclude Include="PDIWT_ZJCZL_C++.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PDIWT_ZJCZL_C++ids.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chinese\PDIWT_ZJCZL_C++txt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PDIWT_ZJCZL_C++cmd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PDIWT_ZJCZL_C++.r">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PDIWT_ZJCZL_C++ui.r">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PDIWT_ZJCZL_C++cmd.r">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="PDIWT_Gadgettype.mt">
+    <None Include="PDIWT_ZJCZL_C++type.mt">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="PDIWT_Gadget.r">
+    <None Include="PDIWT_ZJCZL_C++.mke" />
+    <None Include="chinese\PDIWT_ZJCZL_C++msg.r">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="chinese\PDIWT_Gadgetmsg.r">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="PDIWT_Gadgetui.r">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="PDIWT_Gadget.mke" />
   </ItemGroup>
 </Project>
