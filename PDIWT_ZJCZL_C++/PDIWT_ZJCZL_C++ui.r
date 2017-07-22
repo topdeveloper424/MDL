@@ -11,23 +11,25 @@ DialogBoxRsc DIALOGID_DevInfoBox =
 	DIALOGATTR_MODAL | DIALOGATTR_DEFAULT,XSIZE,YSIZE,NOHELP,MHELP,
 	NOHOOK,NOPARENTID,"×®»ù³ÐÔØÁ¦Ä£¿é",
 	{
-		//BEGIN_GRID_LAYOUT(GRIDLAYOUTID_2ColumnsOuter,"")
-		//	GRID_ROW(0,"")
-		//		{ AUTO_XYWH,Label,0,ON,ALIGN_CENTER|LABEL_FONT_BOLD,TXT_Brief,""},
-		//		{ AUTO_XYWH,Generic,GENERICID_LockIcon,NO_ITEMARGS},
-		//	END_ROW
-		//	GRID_ROW(0,"")
-		//		{ AUTO_XYWH,Label,0,ON,ALIGN_CENTER,TXT_Version,"" },
-		//		{ AUTO_XYWH,Label,0,ON,ALIGN_CENTER,TXT_DevTime,"" },
-		//	END_ROW
-		//	GRID_ROW(0,"")
-		//		{ AUTO_XYWH,Label,0,ON,ALIGN_RIGHT,TXT_Commpany,""},
-		//		{ AUTO_XYWH,Label,0,ON,ALIGN_RIGHT,TXT_DeveloperName,""},
-		//	END_ROW
-		//END_LAYOUT
-		BEGIN_VSTACK_LAYOUT(VSTACKLAYOUTID_Standard,"")
-			{AUTO_XYWH,Generic,GENERICID_CompanyLogo,NO_ITEMARGS},
+		BEGIN_GRID_LAYOUT(GRIDLAYOUTID_2ColumnsOuter,"")
+			GRID_ROW(0,"")
+				{ AUTO_XYWH,Label,0,ON,ALIGN_CENTER|LABEL_FONT_BOLD,TXT_Brief,"colSpan='*'"},
+			END_ROW
+			GRID_ROW(0,"")
+				{ AUTO_XYWH,Label,0,ON,ALIGN_CENTER,TXT_Version,"" },
+				{ AUTO_XYWH,Label,0,ON,ALIGN_CENTER,TXT_DevTime,"" },
+			END_ROW
+			GRID_ROW(0,"")
+				{ AUTO_XYWH,Label,0,ON,ALIGN_RIGHT,TXT_Commpany,""},
+				{ AUTO_XYWH,Label,0,ON,ALIGN_RIGHT,TXT_DeveloperName,""},
+			END_ROW
+			GRID_ROW(0,"")
+				{ AUTO_XYWH,Generic,GENERICID_CompanyLogo,NO_ITEMARGS},
+			END_ROW
 		END_LAYOUT
+		//BEGIN_VSTACK_LAYOUT(VSTACKLAYOUTID_Standard,"")
+		//	{AUTO_XYWH,Generic,GENERICID_CompanyLogo,NO_ITEMARGS},
+		//END_LAYOUT
 	}
 };
 #undef YSIZE
@@ -45,7 +47,7 @@ CmdItemListRsc ITEMLIST_DRAWAXISLINE =
 { {
 		BEGIN_GRID_LAYOUT(GRIDLAYOUTID_2ColsPDIWTSetting,"")
 			GRID_ROW(0,"")
-				{AUTO_XYWH,Label,0,ON,ALIGN_RIGHT | LABEL_LINKNEXT,"",""},
+				{ AUTO_XYWH,Label,0,ON,ALIGN_RIGHT | LABEL_LINKNEXT,"",""},
 				{{AUTO_XY,MAXWIDTH,0},OptionButton,OPTIONBUTTONID_PileType,NO_ITEMARGS},
 			END_ROW
 			GRID_ROW(0,"")

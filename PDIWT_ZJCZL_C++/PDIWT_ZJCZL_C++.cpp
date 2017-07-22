@@ -39,5 +39,23 @@ extern "C" void MdlMain(int argc, WCharCP argv[])
 Private void OpenInfoBox(WCharCP unparsed)
 {
 	MSDialog::OpenModal(nullptr, NULL, DIALOGID_DevInfoBox);
+	//WCharCP fileName = L"D:\\Programma\\Source\\C++\\DML\\PDIWT_Tool\\PDIWT_Tool\\PDIWT_ZJCZL_C++\\resource\\PDIWTLogo.jpg";
+	////WChar device[MAXDEVICELENGTH] , directory[MAXDIRLENGTH] , name[MAXNAMELENGTH], extension[MAXEXTENSIONLENGTH];
+	////mdlFile_parseName(fileName, device, directory, name, extension);
+	////WPrintfString parsedname(L"device ; %s;directory : %s;name : %s;extension : %s", device, directory, name, extension);
+	////mdlOutput_message(parsedname.c_str());
+	////WChar iext[] = L".jpg";
+	//BeFileName outfileName;
+	//if (SUCCESS == mdlFile_find(&outfileName, fileName, nullptr, nullptr))
+	//	mdlOutput_message(outfileName.c_str());
+
+	//Point2d imageSize;
+	//ImageColorMode colorMode;
+	//int orientation;
+	//if (SUCCESS == mdlImage_readFileInfo(&imageSize, &colorMode, &orientation, outfileName.c_str(), ImageFileFormat(-1)))
+	//{
+	//	WPrintfString outputstring(L"Image size (x,y) : (%d,%d)\ncolorMode : %d\norientation :%d", imageSize.x, imageSize.y, colorMode, orientation);
+	//	mdlOutput_message(outputstring.c_str());
+	//}
 }
 

@@ -224,32 +224,31 @@ Private void hookItem_GenericImage(DialogItemMessageP dimP)
 		diP->attributes.acceptsKeystrokes = FALSE;
 		diP->attributes.mouseSensitive = FALSE;
 
-		BeFileNameP fullFileSpec = nullptr;
-		WChar image[MAXFILELENGTH];
-		byte* rgbBuffer = nullptr;
+		//BeFileNameP fullFileSpec = nullptr;
+		WCharCP image = L"D:\\Programma\\Source\\C++\\DML\\PDIWT_Tool\\PDIWT_Tool\\PDIWT_ZJCZL_C++\\resource\\PDIWTLogo.jpg";
+		
 
 		dimP->u.init.initFailed = true;
 
-		//Get an Image file Name
-		WCharCP currentdirectory = _wgetcwd(nullptr, 0);
-		mdlOutput_message(currentdirectory);
-		wcscpy(image, L"PDIWTLogo.jpg");
-		if (SUCCESS == mdlFile_find(fullFileSpec, image, nullptr, nullptr) && fullFileSpec != nullptr)
-		{
-			WPrintfString outputInfo(L"hookItem_GenericImage: load Image :%s\n", fullFileSpec->GetName());
-			mdlOutput_messageCenter(OutputMessagePriority::Info, outputInfo.c_str(), outputInfo.c_str(), OutputMessageAlert::None);
-		}
-		else
-		{
-			WPrintfString outputInfo(L"hookItem_GenericImage: problem with image %s\n", image);
-			mdlOutput_messageCenter(OutputMessagePriority::Error, outputInfo.c_str(), outputInfo.c_str(), OutputMessageAlert::Balloon);
-			dimP->u.init.initFailed = true;
-			break;
-		}
-		Point2d itemSize;
-		itemSize.x = diP->rect.corner.x - diP->rect.origin.x + 1;
-		itemSize.y = diP->rect.corner.y - diP->rect.origin.y + 1;
-		if (SUCCESS == mdlImage_readFileToRGB(&rgbBuffer, nullptr, image, ImageFileFormat::IMAGEFILE_JPEG, nullptr))
+		////Get an Image file Name
+		//if (SUCCESS == mdlFile_find(fullFileSpec, image, nullptr, nullptr) && fullFileSpec != nullptr)
+		//{
+		//	WPrintfString outputInfo(L"hookItem_GenericImage: load Image :%s\n", fullFileSpec->GetName());
+		//	mdlOutput_messageCenter(OutputMessagePriority::Info, outputInfo.c_str(), outputInfo.c_str(), OutputMessageAlert::None);
+		//}
+		//else
+		//{
+		//	WPrintfString outputInfo(L"hookItem_GenericImage: problem with image %s\n", image);
+		//	mdlOutput_messageCenter(OutputMessagePriority::Error, outputInfo.c_str(), outputInfo.c_str(), OutputMessageAlert::Balloon);
+		//	dimP->u.init.initFailed = true;
+		//	break;			
+		//}
+		//Point2d itemSize;
+		//itemSize.x = diP->rect.corner.x - diP->rect.origin.x + 1;
+		//itemSize.y = diP->rect.corner.y - diP->rect.origin.y + 1;
+		Point2d itemSize = { 100,100 };
+		byte* rgbBuffer = nullptr;
+		if (SUCCESS == mdlImage_readFileToRGB(&rgbBuffer, nullptr, image, ImageFileFormat(-1), &itemSize))
 		{
 			rihP->userDataP = rgbBuffer;
 			dimP->u.init.initFailed = FALSE;

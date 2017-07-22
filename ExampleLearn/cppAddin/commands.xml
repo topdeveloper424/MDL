@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<KeyinTree xmlns="http://www.bentley.com/schemas/1.0/MicroStation/AddIn/KeyinTree.xsd">
+
+  <RootKeyinTable ID="root">
+    <Keyword SubtableRef="cppAddin" CommandClass="MacroCommand" CommandWord="cppAddin">
+      <Options Required="true" />
+    </Keyword>
+  </RootKeyinTable>
+
+  <SubKeyinTables>
+    <KeyinTable ID="cppAddin">
+      <Keyword CommandWord="Command"></Keyword>
+    </KeyinTable>
+  </SubKeyinTables>
+
+  <KeyinHandlers>
+    <KeyinHandler Keyin="cppAddin Command" Function="cppAddin.KeyinCommands.Command"/>
+  </KeyinHandlers>
+
+</KeyinTree>

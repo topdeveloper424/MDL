@@ -76,7 +76,7 @@ Public	void basic_openModel(WCharP unparsedP)
 		g_basicGlobals.param1++;
 		if (g_basicGlobals.param1 > 3)
 			g_basicGlobals.param1 = 1;
-		mdlDialog_synonymsSynch(NULL, SYNONYMID_Basic, NULL);
+		mdlDialog_synonymsSynch(NULL, SYNONYMID_Basic, nullptr);
 	}
 }
 
@@ -92,7 +92,7 @@ extern "C" void MdlMain(int argc, WCharCP argv[])
 	RscFileHandle rscFileH;
 	MSDialog *dbP;
 
-	mdlResource_openFile(&rscFileH, NULL, 0);
+	mdlResource_openFile(&rscFileH, nullptr, 0);
 	MdlCommandNumber s_commnadNumbers[] =
 	{
 		{(CmdHandler)basic_openModel,CMD_OPENMODEL},
