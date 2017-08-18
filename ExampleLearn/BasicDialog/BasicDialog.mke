@@ -81,7 +81,7 @@ $(rscObjects)$(appName)cmd.rsc  : $(baseDir)$(appName)cmd.r
 #----------------------------------------------------------------------
 # Gernerate language resource file using rcomp
 #----------------------------------------------------------------------
-$(rscObjects)$(appName)msg.rsc	:	$(langSpec)$(appName)msg.r	#$(baseDir)$(appName).h
+$(rscObjects)$(appName)msg.rsc	:	$(langSpec)$(appName)msg.r	#$(baseDir)$(appName)ids.h
 
 #----------------------------------------------------------------------
 # Gernerate application's type & resouce file using rsctype & rcomp

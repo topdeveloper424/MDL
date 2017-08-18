@@ -115,8 +115,6 @@ $(o)$(appName)QueryTool$(oext)	: $(sourceDir)$(appName)QueryTool.cpp  ${MultiCom
 
 %include MultiCppCompileGo.mki
 
-CCPchOpts =
-
 always:
     !~@mkdir $(DLM_DEST)
 

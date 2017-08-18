@@ -1,0 +1,3 @@
+#define CMD_PDIWT_CELLEXAMPLE                              0x0101000000000000UI64   /* PLACEMENT       */
+#define CMD_PDIWT_CELLEXAMPLE_OPEN                         0x0101010000000000UI64   /* PLACEMENT       */
+#define CMD_PDIWT_CELLEXAMPLE_LISTTOGGLE                   0x0101020000000000UI64   /* PLACEMENT       */

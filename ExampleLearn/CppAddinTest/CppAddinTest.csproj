@@ -49,6 +49,10 @@
       <HintPath>..\packages\BentleyCore.1.2.0\lib\net461\Bentley.ECObjects3.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Bentley.ECXAttributes">
+      <HintPath>C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\Bentley.ECXAttributes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Bentley.General.1.0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bf6c96a266e58d4, processorArchitecture=MSIL">
       <HintPath>..\packages\BentleyCore.1.2.0\lib\net461\Bentley.General.1.0.dll</HintPath>
       <Private>False</Private>
@@ -84,6 +88,11 @@
     </Reference>
     <Reference Include="Bentley.Windowing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bf6c96a266e58d4, processorArchitecture=AMD64">
       <HintPath>..\packages\BentleyCore.1.2.0\lib\net461\Bentley.Windowing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="cppAddin, Version=1.0.6416.15312, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\Mdlapps\cppAddin.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

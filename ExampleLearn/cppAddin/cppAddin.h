@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <random>	
 using namespace System;
 using namespace System::Collections::Generic;
 namespace BD = Bentley::DgnPlatformNET;
@@ -26,7 +27,7 @@ namespace PDIWTCodeQueryLib
 			return String::Format("Layer Info of {8}:{0}Qfi={1}{0}" +
 				"Qri={2}{0}Betasi={3}{0}Xifi={4}{0}Xifi2={5}{0}Xii={6}{0}PsiSi={7}{0}",
 				Environment::NewLine,
-				Qfi, Qri, Betasi, Xifi, Xifi2, Xii, PsiSi,LayerNum);
+				Qfi, Qri, Betasi, Xifi, Xifi2, Xii, PsiSi, LayerNum);
 		}
 	};
 
@@ -62,7 +63,7 @@ namespace PDIWTCodeQueryLib
 
 	public ref class AllLayerInfo
 	{
-	public :
+	public:
 		property List<LayerInfo^>^ IntersectLayers;
 		virtual String^ ToString() override
 		{
@@ -90,5 +91,73 @@ namespace PDIWTCodeQueryLib
 	{
 	public:
 		PDIWTCodeQueryErrorCode QueryById(AllLayerInfo% result, long id);
+	};
+
+	public ref class MeshTest
+	{
+	public:
+		static void ConstructMesh()
+		{
+			mdlCurrTrans_begin();
+			mdlCurrTrans_masterUnitsIdentity(FALSE);
+			bvector<DPoint3d> points = { {0,0,0},{10000,0,0},{0,10000,0},{10000,10000,0},{5000,5000,5000} };
+			PolyfaceHeaderPtr mesh = PolyfaceHeader::CreateXYTriangulation(points);
+			double mesharea;
+			DPoint3d meshcentroid;
+			RotMatrix meshRotmatrix;
+			DVec3d meshmomentxyz;
+			mesh->ComputePrincipalAreaMoments(mesharea, meshcentroid, meshRotmatrix, meshmomentxyz);
+			EditElementHandle meshHandle;
+			DraftingElementSchema::ToElement(meshHandle, *mesh, nullptr, *ACTIVEMODEL);
+			mdlDialog_dmsgsPrint(WPrintfString(L"The number area of the mesh is : %d\nThe mesh centroid is :[%d,%d,%d]", mesharea, meshcentroid.x, meshcentroid.y, meshcentroid.z));
+			mdlCurrTrans_end();
+			meshHandle.AddToModel();
+		}
+		static void DgnFileTest()
+		{
+			WString file(L"D:\\闸首切图.dgn");
+			DgnDocumentPtr pDoc = DgnDocument::CreateForLocalFile(file.c_str());
+			DgnFilePtr dgnFile = DgnFile::Create(*pDoc, DgnFileOpenMode::PreferablyReadWrite);
+			DgnFileStatus fileStatus = dgnFile->LoadDgnFile(nullptr);
+			if (fileStatus != DgnFileStatus::DGNFILE_STATUS_Success)
+			{
+				mdlOutput_messageCenter(OutputMessagePriority::Error, L"无法打开文件", WPrintfString(L"%s 打开失败，错误原因%d\n", dgnFile->GetFileName(), fileStatus), OutputMessageAlert::Dialog);
+				return;
+			}
+			dgnFile->FillDictionaryModel();
+			dgnFile->ProcessChanges(DgnSaveReason::FileClose, 0);
+			dgnFile->DoSaveTo(L"D:\\Test.dgn", DgnFileFormatType::Current);
+			//}
+		}
+		static void DgnModel()
+		{
+			//DgnFilePtr dgnfile = mdlDgnFileObj_getMasterFile();
+			//ModelIndex index = dgnfile->GetModelIndex();
+			////WString str;
+			////for each (auto model in index)
+			////{
+			////	str += WString(model.GetName()) + L"\n";
+			////}
+			//int num = 0;
+			//for each (auto model in index)
+			//{
+			//	num++;
+			//}
+			//mdlOutput_message(WPrintfString(L"The number of model in dgnfile %s is %d",dgnfile->GetFileName(), num));
+			//DgnModelRefR model = *mdlModelRef_getActive();
+			//if (nullptr != model.GetDgnAttachmentsCP())
+			//{
+			//	for each(DgnAttachmentP attachment in *model.GetDgnAttachmentsCP())
+			//	{
+			//		mdlDialog_dmsgsPrint(WPrintfString(L"Referencing file %s, model %s\n", attachment->GetAttachFileName().c_str(), attachment->GetAttachModelName()));
+			//	}
+			//}
+			DgnFilePtr activeDgnFile = ISessionMgr::GetActiveDgnFile();
+			ModelId mId = activeDgnFile->FindModelIdByName(L"平抛");
+			if (mId != INVALID_MODELID)
+			{
+				DgnModelP modelp = activeDgnFile->LoadRootModelById(nullptr, mId, true, true,false);
+			}
+		}
 	};
 }

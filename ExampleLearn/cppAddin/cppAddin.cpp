@@ -21,7 +21,7 @@ namespace BECXA = Bentley::ECXAttributes;
 typedef std::vector<int> IntArray;
 
 /************************************************************************/
-/* Element Finder 扫面文件，寻找相应的元素								*/
+/* Element Finder 扫描文件，寻找相应的元素								*/
 /************************************************************************/
 
 class ElementFinder
@@ -71,10 +71,10 @@ void ElementFinder::GetElements(ElementAgendaP foundElements)
 /************************************************************************/
 /* Global Functions														*/
 /************************************************************************/
-std::string getNativeString(String^ value)
-{
-	return msclr::interop::marshal_as<std::string>(value);
-}
+//std::string getNativeString(String^ value)
+//{
+//	return msclr::interop::marshal_as<std::string>(value);
+//}
 
 ref class LayerInfoAttributteFilter : public BECOX::IECDeserializationFilter
 {
@@ -93,7 +93,7 @@ public:
 	}
 	virtual bool AcceptableProperty(BECOI::IECNamedValueContainer^ container, String^ propertyName)
 	{
-		return;
+		return true;
 	}
 };
 
@@ -101,6 +101,7 @@ void getLayerInfo(LayerInfo^% layerInfo, BECOI::IECInstance^ instance)
 {
 	if (nullptr == instance)
 		return;
+	
 	Type^ layerinfoType = layerInfo->GetType();
 	auto props = layerinfoType->GetProperties();
 	for each (auto propinfo in props)
@@ -111,12 +112,36 @@ void getLayerInfo(LayerInfo^% layerInfo, BECOI::IECInstance^ instance)
 	}
 }
 
+bool traversalLayerInfoDelegate(BECOI::IECInstance^ ecInstance, IntPtr XAttributeIterAsIntPtr, Object^ userObj)
+{
+	BECOI::ECInstanceList^ instanceList = dynamic_cast<BECOI::ECInstanceList^>(userObj);
+	instanceList->Add(ecInstance);
+	return false;
+}
+
 StatusInt getLayerInfoAttributtes(LayerInfo^% layerInfo, ElementHandleCR eh)
 {
 	if (BSPLINE_SURFACE_ELM != const_cast<ElementHandleR>(eh).GetElementType())
 		return ERROR;
 
+	BECOX::IECDeserializationFilter^ filter = gcnew LayerInfoAttributteFilter();
 
+	BECOI::ECInstanceList^ instanceList = gcnew BECOI::ECInstanceList();
+	BECXA::ECXAttributes::Traverse(gcnew BECXA::ECXAttributes::TraverseDelegate(&traversalLayerInfoDelegate),
+		eh,
+		XAttributeHandle::INVALID_XATTR_ID,
+		filter, instanceList);
+
+	StatusInt status = ERROR;
+	for each (BECOI::IECInstance^ instance in instanceList)
+	{
+		if (instance->ClassDefinition->Name == "AglosGeo")
+		{
+			getLayerInfo(layerInfo, instance);
+			status = SUCCESS;
+		}
+	}
+	return status;
 }
 
 /************************************************************************/
