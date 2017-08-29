@@ -5,6 +5,7 @@
 /************************************************************************/
 Private OffSetWidth g_offsetwidth = { 10 };
 Private DgnLevels g_dgnlevels = { "Default" };
+Private TableYTolerance g_tableytolerance = { 1e-5 };
 
 DialogHookInfo uHooks[] =
 {
@@ -15,6 +16,7 @@ static MdlCommandNumber s_commandNumber[] =
 {
 	{(CmdHandler)ParallelArea,CMD_PDIWT_GADGET_PARALLELAREA},
 	{(CmdHandler)ShowLevelBox,CMD_PDIWT_GADGET_LEVELBOXUI },
+	{(CmdHandler)CreateTable, CMD_PDIWT_GADGET_CREATETABLE },
 	nullptr
 };
 
@@ -33,6 +35,7 @@ extern	"C" void MdlMain(int argc, WCharCP argv[])
 	SymbolSet* setp = mdlCExpression_initializeSet(VISIBILITY_DIALOG_BOX, 0, FALSE);
 	mdlDialog_publishComplexVariable(setp, "OffSetWidth", "g_offsetwidth", &g_offsetwidth);
 	mdlDialog_publishComplexVariable(setp, "DgnLevels", "g_dgnlevels", &g_dgnlevels);
+	mdlDialog_publishComplexVariable(setp, "TableYTolerance", "g_tableytolerance", &g_tableytolerance);
 	//publish hookfunction
 	mdlDialog_hookPublish(sizeof(uHooks) / sizeof(DialogHookInfo), uHooks);
 }

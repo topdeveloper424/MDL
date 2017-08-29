@@ -118,6 +118,7 @@
     <ClInclude Include="PDIWT_Gadgetids.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CreateTableTool.cpp" />
     <ClCompile Include="LevelBoxUi.cpp" />
     <ClCompile Include="ParallelAreaTool.cpp" />
     <ClCompile Include="PDIWT_Gadget.cpp" />

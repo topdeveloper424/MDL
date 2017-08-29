@@ -38,6 +38,9 @@
     <ClCompile Include="LevelBoxUi.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CreateTableTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="PDIWT_Gadgetcmd.r">

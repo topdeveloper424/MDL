@@ -10,7 +10,6 @@
 #include <DgnPlatform\DgnPlatformApi.h>
 #include <Mstn\PSolid\mssolid.h>
 #include <Mstn\PSolid\mssolid.fdf>
-#include <msclr\marshal.h>
 
 USING_NAMESPACE_BENTLEY
 USING_NAMESPACE_BENTLEY_DGNPLATFORM

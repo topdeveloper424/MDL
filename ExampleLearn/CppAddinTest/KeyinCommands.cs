@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bentley.Interop.MicroStationDGN;
+using PDIWTCodeQueryLib;
 using BD = Bentley.DgnPlatformNET;
 
 namespace CppAddinTest
@@ -17,13 +18,11 @@ namespace CppAddinTest
             //PDIWTCodeQueryLib.MeshTest.ConstructMesh();
             //PDIWTCodeQueryLib.MeshTest.DgnFileTest();
             //PDIWTCodeQueryLib.MeshTest.DgnModel();
-            BD.DgnFile activeDgnFile = Program.GetActiveDgnFile();
-            BD.LevelCache levelCache = activeDgnFile.GetLevelCache();
-            foreach (var level in levelCache.GetHandles())
+
+            PDIWTCodeQueryLib.CellFunction cellFunction = new CellFunction(@"D:\项目\BIM实习\梅山二期\建模中间文件\码头\celllib\节点库.cel");
+            if (BD.StatusInt.Success == cellFunction.AttachLibrary())
             {
-                BD.LevelDefinitionColor byLevelColor = level.GetByLevelColor();
-                var colorinfo = BD.DgnColorMap.ExtractElementColorInfo(byLevelColor.Color, activeDgnFile);
-                
+                MessageBox.Show("DONE!");
             }
         }
     }

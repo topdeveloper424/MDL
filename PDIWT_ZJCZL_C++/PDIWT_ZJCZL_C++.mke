@@ -1,27 +1,27 @@
 #--------------------------------------------------------------------------------------
 #
 #
-#  $Copyright: (c) 2017 PDIWT Systems, Incorporated. All rights reserved. $
+# $Copyright: (c) 2017 PDIWT Systems, Incorporated. All rights reserved. $
+#
 #
 #--------------------------------------------------------------------------------------
-
 
 #----------------------------------------------------------------------
 # Variable Defination
 #----------------------------------------------------------------------
-appName         = PDIWT_ZJCZL_C++
+appName = PDIWT_ZJCZL_C++
 #MS = C:/PROGRA~1/Bentley/MICROS~1/MICROS~1/
 
 
-%warn MS=$(MS)
-%warn MSMDE=$(MSMDE)
-%warn MSMDE_OUTPUT=$(MSMDE_OUTPUT)
+%warn MS = $(MS)
+%warn MSMDE = $(MSMDE)
+%warn MSMDE_OUTPUT = $(MSMDE_OUTPUT)
 
-baseDir         = $(_MakeFilePath)
-includeDir      = $(baseDir)
-sourceDir       = $(baseDir)
-langSpec        = $(baseDir)chinese/
-mdlapps         = $(MS)Mdlapps/
+baseDir = $(_MakeFilePath)
+includeDir = $(baseDir)
+sourceDir = $(baseDir)
+langSpec = $(baseDir)chinese/
+mdlapps = $(MS)Mdlapps/
 
 
 nameToDefine = __$(appName)_BUILD__
@@ -29,27 +29,29 @@ nameToDefine = __$(appName)_BUILD__
 
 PolicyFile = MicroStationPolicy.mki
 
-DEFAULT_TARGET_PROCESSOR_ARCHITECTURE=x64
+DEFAULT_TARGET_PROCESSOR_ARCHITECTURE = x64
 
-mdlMki      = $(MSMDE)mki/
-mdlLibs     = $(MSMDE)library/
-mdlInc      = $(MSMDE)include/
+mdlMki = $(MSMDE)mki/
+mdlLibs = $(MSMDE)library/
+mdlInc = $(MSMDE)include/
+
 
 
 %include $(mdlMki)mdl.mki
 
 o = $(MSMDE_OUTPUT)objects/$(appName)/
+
 genSrc = $(o)
 
-mdlapps         = $(MS)Mdlapps/
+mdlapps = $(MS)Mdlapps/
 
 #----------------------------------------------------------------------
 # Create needed output directories if they don't exist
 #----------------------------------------------------------------------
 always:
-    !~@mkdir $(o)
-    !~@mkdir $(rscObjects)
-    !~@mkdir $(reqdObjs)
+	!~@mkdir $(o)
+	!~@mkdir $(rscObjects)
+	!~@mkdir $(reqdObjs)
 
 #----------------------------------------------------------------------
 # Inlucde the Heaher files
@@ -59,7 +61,6 @@ dirToSearch = $(genSrc)
 
 dirToSearch = $(mdlInc)
 %include $(mdlMki)cincapnd.mki
-
 
 dirToSearch = $(baseDir)
 %include $(mdlMki)cincapnd.mki
@@ -73,58 +74,48 @@ dirToSearch = $(MSMDE)include/
 #-----------------------------------------------------------------------
 # Generate app res using rcomp
 #-----------------------------------------------------------------------
-$(rscObjects)$(appName).rsc		:	$(baseDir)$(appName).r
+$(rscObjects)$(appName).rsc     :	$(baseDir)$(appName).r
 
 #-----------------------------------------------------------------------
 # Generate commandTable and headerfile using rcomp
 #-----------------------------------------------------------------------
-$(baseDir)$(appName)cmd.h		: $(baseDir)$(appName)cmd.r
+$(baseDir)$(appName)cmd.h       : $(baseDir)$(appName)cmd.r	
 
-$(rscObjects)$(appName)cmd.rsc  : $(baseDir)$(appName)cmd.r
+$(rscObjects)$(appName)cmd.rsc  : $(baseDir)$(appName)cmd.r	
 
 #----------------------------------------------------------------------
 # Gernerate language resource file using rcomp
 #----------------------------------------------------------------------
-$(rscObjects)$(appName)msg.rsc	:	$(langSpec)$(appName)msg.r	$(baseDir)$(appName).h
+$(rscObjects)$(appName)msg.rsc  :	$(langSpec)$(appName)msg.r	
 
 #----------------------------------------------------------------------
 # Gernerate application's type & resouce file using rsctype & rcomp
 #----------------------------------------------------------------------
-$(rscObjects)$(appName)Type.r	:	$(baseDir)$(appName)Type.mt	$(baseDir)$(appName).h
+$(rscObjects)$(appName)type.r   :	$(baseDir)$(appName)Type.mt	
 
-$(rscObjects)$(appName)Type.rsc	:	$(rscObjects)$(appName)Type.r	$(baseDir)$(appName).h
-
-#----------------------------------------------------------------------
-# Gernate all UI resouce
-#----------------------------------------------------------------------
-$(rscObjects)$(appName)ui.rsc		:	$(baseDir)$(appName)ui.r $(langSpec)$(appName)txt.h $(baseDir)$(appName)ids.h \
-										$(baseDir)$(appName)cmd.h 
+$(rscObjects)$(appName)type.rsc :	$(rscObjects)$(appName)Type.r	
 
 #----------------------------------------------------------------------
 # Define macros for files included in our link and resource merge
 #----------------------------------------------------------------------
-appRscs         =	$(rscObjects)$(appName).rsc	\
-					$(rscObjects)$(appName)cmd.rsc \
-					$(rscObjects)$(appName)msg.rsc \
-					$(rscObjects)$(appName)ui.rsc \
-					$(rscObjects)$(appName)Type.rsc
+appRscs         =$(rscObjects)PDIWT_ZJCZL_C++msg.rsc	$(rscObjects)PDIWT_ZJCZL_C++cmd.rsc	$(rscObjects)PDIWT_ZJCZL_C++type.rsc	
 
 #----------------------------------------------------------------------
-#   Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
+# Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
 #----------------------------------------------------------------------
 
-DLM_NAME                = $(appName)
-DLM_DEST                = $(mdlapps)
-DLM_EXPORT_DEST         = $(mdlapps)
-DLM_OBJECT_FILES        = $(MultiCompileObjectList)
-DLM_OBJECT_DEST         = $(o)
-DLM_SPECIAL_LINKOPT     = -fixed:no # Notify linker this library does not require a fixed base address to load
-DLM_NO_DLS              = 0         # USE DLLEXPORT IN .CPP
-DLM_NO_DEF              = 1
-DLM_NOENTRY             = 1
-DLM_NO_MANIFEST         = 1         # If not set linker embeds your current (developer) patched MSVCRT version manifest in output dll.  This is not desirable and produces side-by-side CLIENT ERROR: 14001)
-DLM_NO_SIGN             = 1         # If not set and no certificate found, ERROR: 'singleton' is not recognized as an internal or external command
-%include				dlmAllLibs.mki
+DLM_NAME = $(appName)
+DLM_DEST = $(mdlapps)
+DLM_EXPORT_DEST = $(mdlapps)
+DLM_OBJECT_FILES = $(MultiCompileObjectList)
+DLM_OBJECT_DEST = $(o)
+DLM_SPECIAL_LINKOPT = -fixed:no # Notify linker this library does not require a fixed base address to load
+DLM_NO_DLS = 0         # USE DLLEXPORT IN .CPP
+DLM_NO_DEF = 1
+DLM_NOENTRY = 1
+DLM_NO_MANIFEST = 1         # If not set linker embeds your current (developer) patched MSVCRT version manifest in output dll.  This is not desirable and produces side-by-side CLIENT ERROR: 14001)
+DLM_NO_SIGN = 1         # If not set and no certificate found, ERROR: 'singleton' is not recognized as an internal or external command
+%include   dlmAllLibs.mki
 
 #------------------------------------------------
 # Compile the source files for the DLM
@@ -132,9 +123,9 @@ DLM_NO_SIGN             = 1         # If not set and no certificate found, ERROR
 MultiCompileDepends = $(_MakeFileSpec)
 %include MultiCppCompileRule.mki
 
-$(o)$(appName)$(oext)	:	$(sourceDir)$(appName).cpp	${MultiCompileDepends}	$(allDepends)
-
 $(o)DrawPileAxisTool$(oext)	:	$(sourceDir)DrawPileAxisTool.cpp	${MultiCompileDepends}	$(allDepends)
+
+$(o)PDIWT_ZJCZL_C++$(oext)	:	$(sourceDir)PDIWT_ZJCZL_C++.cpp	${MultiCompileDepends}	$(allDepends)
 
 %include MultiCppCompileGo.mki
 
@@ -146,23 +137,24 @@ always:
 #----------------------------------------------------------------------
 # Link the MA
 #----------------------------------------------------------------------
-MA_NAME         = $(appName)
+MA_NAME = $(appName)
 RIGHTSCOMPLIANT = false
-MA_DEST         = $(mdlApps)
-MA_RSC_FILES    = $(rscObjects)$(appName)cmd.rsc
-MA_NO_VERSION   = 1
-MA_EXT          = .ma
-cmdFile         = $(o)$(MA_NAME)link.cmd
+MA_DEST = $(mdlApps)
+MA_RSC_FILES = $(rscObjects)$(appName)cmd.rsc
+MA_NO_VERSION = 1
+MA_EXT = .ma
+cmdFile = $(o)$(MA_NAME)link.cmd
 
 #-----------------------------------------------------------------------
 # Merge Objects into one file
 #-----------------------------------------------------------------------
 #$(reqdObjs)$(appName).mi : $(appRscs)
 "$(MA_DEST)$(MA_NAME)$(MA_EXT)" : $(appRscs)
-    $(msg)        
+    $(msg)
     >$(o)make.opt
     -o$@
     $(appRscs)
     <
     $(RLibCmd) @$(o)make.opt
     ~time
+

@@ -15,6 +15,16 @@ CmdItemListRsc	ITEMLIST_PARALLELARE =
 		END_LAYOUT
 	END_LAYOUT
 }};
+
+CmdItemListRsc	ITEMLIST_CREATETABLE =
+{{
+	BEGIN_VSTACK_LAYOUT(VSTACKLAYOUTID_Standard,"")
+		BEGIN_HSTACK_LAYOUT(HSTACKLAYOUTID_Standard,"")
+			{AUTO_XYWH,Label,0,ON,LABEL_LINKNEXT,"",""},
+			{AUTO_XYWH,Text,TEXTID_TabelYTolerance,NO_ITEMARGS},
+		END_LAYOUT
+	END_LAYOUT
+}};
 /*----------------------------------------------------------------------+
 |                                                                       |
 |   Text Item Resource Definitions                                      |
@@ -60,6 +70,13 @@ DItem_TextRsc TEXTID_OffsetWidth =
 	"g_offsetwidth.width"
 };
 
+DItem_TextRsc TEXTID_TabelYTolerance =
+{
+	NOCMD,LCMD,NOSYNONYM,NOHELP,MHELP,NOHOOK,NOARG,
+	12,"%g","%g","1e-3","",NOMARK,NOCONCAT,
+	TXT_TabelYTolerance,
+	"g_tableytolerance.tolerance"
+};
 //DItem_TextRsc TEXTID_Basic =
 //{
 //	NOCMD,LCMD,SYNONYMID_Basic,NOHELP,MHELP,NOHOOK,NOARG,

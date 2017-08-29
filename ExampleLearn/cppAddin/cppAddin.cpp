@@ -1,8 +1,8 @@
 // 这是主 DLL 文件。
 
 #include "stdafx.h"
-
 #include "cppAddin.h"
+#include <vcclr.h>
 
 using namespace PDIWTCodeQueryLib;
 
@@ -160,4 +160,17 @@ PDIWTCodeQueryErrorCode PDIWTCodeQueryLib::PDIWTQuery::QueryById(AllLayerInfo % 
 	if (bssurfaceSize <= 0)
 		return PDIWTCodeQueryErrorCode::NotFoundLayer;
 	return PDIWTCodeQueryErrorCode();
+}
+
+BD::StatusInt PDIWTCodeQueryLib::CellFunction::AttachLibrary()
+{
+	BeFileName outcelllibName;
+	pin_ptr<const wchar_t> pCelllibPath = PtrToStringChars(cellLibPath);
+	mdlCell_attachLibrary(outcelllibName, &BeFileName(pCelllibPath), nullptr, TRUE);
+	return BD::StatusInt::Success;
+}
+
+BD::StatusInt PDIWTCodeQueryLib::CellFunction::PutCell(String ^ cellName)
+{
+	return BD::StatusInt::Success;
 }

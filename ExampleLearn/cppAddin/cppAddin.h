@@ -1,7 +1,7 @@
 // cppAddin.h
 
 #pragma once
-
+#include <msclr\marshal.h>
 #include <random>	
 using namespace System;
 using namespace System::Collections::Generic;
@@ -159,5 +159,20 @@ namespace PDIWTCodeQueryLib
 				DgnModelP modelp = activeDgnFile->LoadRootModelById(nullptr, mId, true, true,false);
 			}
 		}
+	};
+
+	public ref class CellFunction
+	{
+	public:
+		property String^ cellLibPath;
+		property double X;
+		property double Y;
+		property double Z;
+		property double AngleX;
+		property double AngleY;
+		property double AngleZ;
+		CellFunction(String^ libpath) { cellLibPath = libpath; }
+		BD::StatusInt AttachLibrary();
+		BD::StatusInt PutCell(String^ cellName);
 	};
 }

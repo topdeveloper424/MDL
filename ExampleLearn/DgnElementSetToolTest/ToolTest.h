@@ -13,7 +13,7 @@ protected:
 	virtual UsesSelection _AllowSelection() override { return UsesSelection::USES_SS_None; }
 	virtual bool _DoGroups() override { return false; }
 	virtual bool _NeedAcceptPoint() override { return true; }
-	virtual void _SetupAndPromptForNextAction() override { mdlDialog_dmsgsPrint(L"_SetupAndpromptForNextAction"); }
+	virtual void _SetupAndPromptForNextAction() override { SetupAndPromptForNextActionHelper(); mdlDialog_dmsgsPrint(L"_SetupAndpromptForNextAction"); }
 	virtual bool _WantAdditionalLocate(DgnButtonEventCP ev) override {/* mdlDialog_dmsgsPrint(L"_WantAdditionalLocate"); */return  true; }
 	virtual bool _OnModifierKeyTransition(bool wentDown, int key) override { mdlDialog_dmsgsPrint(L"_OnModifierKeyTransition"); return true; }
 	virtual StatusInt _OnElementModify(EditElementHandleR el) override { mdlDialog_dmsgsPrint(L"_OnElementModify"); return ERROR; }
