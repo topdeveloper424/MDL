@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <MSSDKLinkLibs>animcore.lib;BaseGeoCoord.lib;Bentley.GeoCoord.lib;Bentley.imodelconnection.lib;Bentley.imodelmessage.lib;Bentley.lib;Bentley.MicroStation.MaterialControl.lib;Bentley.PrintDefinitions.lib;Bentley.PrintFoundation.lib;BentleyAllocator.lib;BentleyGeom.lib;BentleyGeomSerialization.lib;BeXml.lib;Constraint2dCore.lib;Constraint2dElement.lib;dbpwise.lib;DgnGeoCoord.lib;DgnPlatform.lib;DgnView.lib;ECObjects.lib;ImageLib.lib;InsolationLib.lib;mdlbltin.lib;mdlxmltools.lib;mspsolid.lib;mstntoolsubs.lib;nativewindow.lib;nativewinmfc.lib;PointCloud.lib;PSolidAcisInterop.lib;PSolidCore.lib;Publish.lib;RasterCore.lib;rasterlib.lib;RmgrTools.lib;SmartFeature.lib;splindlm.lib;TerrainModelCore.lib;TerrainModelElementHandler.lib;videolib.lib;VisEdgesLib.lib;</MSSDKLinkLibs>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>winNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="MSSDKLinkLibs">
+      <Value>$(MSSDKLinkLibs)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

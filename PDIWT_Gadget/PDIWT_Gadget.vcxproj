@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <ProjectGuid>{ACDFBB01-B48C-4390-A3C0-CD1D473D6682}</ProjectGuid>
     <RootNamespace>PDIWT_Gadget</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,7 +42,9 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -66,10 +69,14 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MSConfig.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(MSSDKINC);$(IncludePath)</IncludePath>
+    <OutDir>$(MSAPP)</OutDir>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(MSSDKLIB);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,7 +90,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>winNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>animcore.lib;BaseGeoCoord.lib;Bentley.GeoCoord.lib;Bentley.imodelconnection.lib;Bentley.imodelmessage.lib;Bentley.lib;Bentley.MicroStation.MaterialControl.lib;Bentley.PrintDefinitions.lib;Bentley.PrintFoundation.lib;BentleyAllocator.lib;BentleyGeom.lib;BentleyGeomSerialization.lib;BeXml.lib;Constraint2dCore.lib;Constraint2dElement.lib;dbpwise.lib;DgnGeoCoord.lib;DgnPlatform.lib;DgnView.lib;ECObjects.lib;ImageLib.lib;InsolationLib.lib;mdlbltin.lib;mdlxmltools.lib;mspsolid.lib;mstntoolsubs.lib;nativewindow.lib;nativewinmfc.lib;PointCloud.lib;PSolidAcisInterop.lib;PSolidCore.lib;Publish.lib;RasterCore.lib;rasterlib.lib;RmgrTools.lib;SmartFeature.lib;splindlm.lib;TerrainModelCore.lib;TerrainModelElementHandler.lib;videolib.lib;VisEdgesLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -130,6 +142,16 @@
     <None Include="PDIWT_Gadgetcmd.r" />
     <None Include="PDIWT_Gadgettype.mt" />
     <None Include="PDIWT_Gadgetui.r" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1" />
+    <Reference Include="PDIWT_Encrypt">
+      <HintPath>C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\Mdlapps\PDIWT_Encrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

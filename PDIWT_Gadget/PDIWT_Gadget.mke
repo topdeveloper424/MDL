@@ -105,43 +105,7 @@ $(rscObjects)$(appName)ui.rsc       :	$(baseDir)$(appName)ui.r	$(baseDir)PDIWT_G
 #----------------------------------------------------------------------
 appRscs         =$(rscObjects)PDIWT_Gadgetmsg.rsc	$(rscObjects)PDIWT_Gadget.rsc	$(rscObjects)PDIWT_Gadgetcmd.rsc	$(rscObjects)PDIWT_Gadgettype.rsc	$(rscObjects)PDIWT_Gadgetui.rsc	
 
-#----------------------------------------------------------------------
-# Set up to use linkLibrary.mki (legacy: dlmcomp.mki and dlmlink.mki)
-#----------------------------------------------------------------------
 
-DLM_NAME = $(appName)
-DLM_DEST = $(mdlapps)
-DLM_EXPORT_DEST = $(mdlapps)
-DLM_OBJECT_FILES = $(MultiCompileObjectList)
-DLM_OBJECT_DEST = $(o)
-DLM_SPECIAL_LINKOPT = -fixed:no # Notify linker this library does not require a fixed base address to load
-DLM_NO_DLS = 0         # USE DLLEXPORT IN .CPP
-DLM_NO_DEF = 1
-DLM_NOENTRY = 1
-DLM_NO_MANIFEST = 1         # If not set linker embeds your current (developer) patched MSVCRT version manifest in output dll.  This is not desirable and produces side-by-side CLIENT ERROR: 14001)
-DLM_NO_SIGN = 1         # If not set and no certificate found, ERROR: 'singleton' is not recognized as an internal or external command
-%include   dlmAllLibs.mki
-
-#------------------------------------------------
-# Compile the source files for the DLM
-#------------------------------------------------
-MultiCompileDepends = $(_MakeFileSpec)
-%include MultiCppCompileRule.mki
-
-$(o)LevelBoxUi$(oext)	:	$(sourceDir)LevelBoxUi.cpp	${MultiCompileDepends}	$(allDepends)
-
-$(o)ParallelAreaTool$(oext)	:	$(sourceDir)ParallelAreaTool.cpp	${MultiCompileDepends}	$(allDepends)
-
-$(o)CreateTableTool$(oext)	:	$(sourceDir)CreateTableTool.cpp ${MultiCompileDepends} $(allDepends)
-
-$(o)PDIWT_Gadget$(oext)	:	$(sourceDir)PDIWT_Gadget.cpp	${MultiCompileDepends}	$(allDepends)
-
-%include MultiCppCompileGo.mki
-
-always:
-    !~@mkdir $(DLM_DEST)
-
-%include $(mdlMki)dlmlink.mki
 
 #----------------------------------------------------------------------
 # Link the MA
