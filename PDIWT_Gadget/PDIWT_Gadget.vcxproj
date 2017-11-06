@@ -73,10 +73,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(MSSDKINC);$(IncludePath)</IncludePath>
+    <IncludePath>$(MSSDKINC);D:\Programma\Source\C++\libxl-3.6.5.0\include_cpp;$(IncludePath)</IncludePath>
     <OutDir>$(MSAPP)</OutDir>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <LibraryPath>$(MSSDKLIB);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(MSSDKLIB);D:\Programma\Source\C++\libxl-3.6.5.0\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,11 +90,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>winNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>winNT;_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>animcore.lib;BaseGeoCoord.lib;Bentley.GeoCoord.lib;Bentley.imodelconnection.lib;Bentley.imodelmessage.lib;Bentley.lib;Bentley.MicroStation.MaterialControl.lib;Bentley.PrintDefinitions.lib;Bentley.PrintFoundation.lib;BentleyAllocator.lib;BentleyGeom.lib;BentleyGeomSerialization.lib;BeXml.lib;Constraint2dCore.lib;Constraint2dElement.lib;dbpwise.lib;DgnGeoCoord.lib;DgnPlatform.lib;DgnView.lib;ECObjects.lib;ImageLib.lib;InsolationLib.lib;mdlbltin.lib;mdlxmltools.lib;mspsolid.lib;mstntoolsubs.lib;nativewindow.lib;nativewinmfc.lib;PointCloud.lib;PSolidAcisInterop.lib;PSolidCore.lib;Publish.lib;RasterCore.lib;rasterlib.lib;RmgrTools.lib;SmartFeature.lib;splindlm.lib;TerrainModelCore.lib;TerrainModelElementHandler.lib;videolib.lib;VisEdgesLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>animcore.lib;BaseGeoCoord.lib;Bentley.GeoCoord.lib;Bentley.imodelconnection.lib;Bentley.imodelmessage.lib;Bentley.lib;Bentley.MicroStation.MaterialControl.lib;Bentley.PrintDefinitions.lib;Bentley.PrintFoundation.lib;BentleyAllocator.lib;BentleyGeom.lib;BentleyGeomSerialization.lib;BeXml.lib;Constraint2dCore.lib;Constraint2dElement.lib;dbpwise.lib;DgnGeoCoord.lib;DgnPlatform.lib;DgnView.lib;ECObjects.lib;ImageLib.lib;InsolationLib.lib;mdlbltin.lib;mdlxmltools.lib;mspsolid.lib;mstntoolsubs.lib;nativewindow.lib;nativewinmfc.lib;PointCloud.lib;PSolidAcisInterop.lib;PSolidCore.lib;Publish.lib;RasterCore.lib;rasterlib.lib;RmgrTools.lib;SmartFeature.lib;splindlm.lib;TerrainModelCore.lib;TerrainModelElementHandler.lib;videolib.lib;VisEdgesLib.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,6 @@
     <None Include="PDIWT_Gadgetui.r" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1" />
     <Reference Include="PDIWT_Encrypt">
       <HintPath>C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\Mdlapps\PDIWT_Encrypt.dll</HintPath>
     </Reference>

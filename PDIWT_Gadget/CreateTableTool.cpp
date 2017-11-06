@@ -1,10 +1,12 @@
 #include "PDIWT_Gadget.h"
+#include "libxl.h"
 
 using namespace System::Windows::Forms;
-using namespace OfficeOpenXml;
 using namespace msclr::interop;
 
-extern TableYTolerance g_tableytolerance;
+using namespace libxl;
+
+//extern TableYTolerance g_tableytolerance;
 struct TextInfo
 {
 	WString m_textcontent;
@@ -24,9 +26,10 @@ struct CreateTableTool : DgnElementSetTool
 private:
 	//Extract the textInfo
 	void _GetGridXYRange(bstdset<double>& _xrange, bstdset<double>& _yrange);
+	void _GetGridXYRange_ProcessLineEle(bstdset<double>& _xrange, bstdset<double>& _yrange,ElemAgendaEntry& _ele);
 	void _GetGridCellInfo(bvector<TabelCellInfo>& _tablecellsinfo, const bstdset<double> _xrange, const bstdset<double> _yrange);
 	void _ExtractTextInfo(bvector<TextInfo>& _selectedtextesinfo);
-
+	StatusInt _OutputTable(WString outFileName);
 
 protected:
 	CreateTableTool(int toolId) : DgnElementSetTool(toolId) {}
@@ -48,10 +51,9 @@ protected:
 
 public:
 	static void InstallNewInstance(int toolId);
-	void _OutputTable(WString outFileName);
 };
 
-void CreateTableTool::_OutputTable(WString outFileName)
+StatusInt CreateTableTool::_OutputTable(WString outFileName)
 {
 	bstdset<double> _xrange, _yrange;
 	_GetGridXYRange(_xrange, _yrange);
@@ -67,18 +69,26 @@ void CreateTableTool::_OutputTable(WString outFileName)
 			auto itr = std::find_if(_tabelcellinfo.begin(), _tabelcellinfo.end(), [&_textinfo](TabelCellInfo _tt) { return _tt.cellrange.Contains(_textinfo.origin); });
 			if (itr != _tabelcellinfo.end()) itr->text += _textinfo.m_textcontent;
 		}
-
-		System::String^ _filePath = marshal_as<System::String^>(outFileName.c_str());
-		ExcelPackage^ _package = gcnew ExcelPackage(gcnew System::IO::FileInfo(_filePath));
-		ExcelWorksheet^ _sheet = _package->Workbook->Worksheets->Add(System::IO::Path::GetFileNameWithoutExtension(_filePath));
-		for each(auto _cellinfo in _tabelcellinfo)
+		Book* book = xlCreateXMLBook();
+		if (book)
 		{
-			mdlDialog_dmsgsPrint(WPrintfString(L"row:{%d}, col:{%d}, Text {%s}", _cellinfo.row, _cellinfo.column, _cellinfo.text));
+			WString _excelsheetname = BeFileName::GetFileNameWithoutExtension(outFileName.GetWCharCP());
+			Sheet* sheet = book->addSheet(_excelsheetname.GetWCharCP());
+			if (sheet)
+			{
+				for each(auto _cellinfo in _tabelcellinfo)
+				{
+					//mdlDialog_dmsgsPrint(WPrintfString(L"row:{%d}, col:{%d}, Text {%s}", _cellinfo.row, _cellinfo.column, _cellinfo.text));
 
-			//_sheet->Cells[_cellinfo.row, _cellinfo.column]->Value = marshal_as<System::String^>(_cellinfo.text);
+					//_sheet->Cells[_cellinfo.row, _cellinfo.column]->Value = marshal_as<System::String^>(_cellinfo.text);
+					sheet->writeStr((int)_cellinfo.row, (int)_cellinfo.column, _cellinfo.text.GetWCharCP());
+				}
+			}
+			if (book->save(outFileName.GetWCharCP())) return SUCCESS;
+			book->release();
 		}
-		_package->Save();
 	}
+	return ERROR;
 }
 
 //  [11/3/2017 sudongsheng]
@@ -90,23 +100,58 @@ void CreateTableTool::_GetGridXYRange(bstdset<double>& _xrange, bstdset<double>&
 	{
 		if (_ele.GetElementType() == LINE_ELM)
 		{
-			LineHandler* _line_handlerP = dynamic_cast<LineHandler*>(_ele.GetDisplayHandler());
-			if (nullptr == _line_handlerP) continue;
-			CurveVectorPtr _linecv;
-			_line_handlerP->GetCurveVector(_ele, _linecv);
-			DVec3d _lineVector;
-			DPoint3d _lineStartPoint;
-			_linecv->GetStartEnd(_lineStartPoint, DPoint3d(), _lineVector, DVec3d());
-			if (_lineVector.IsParallelTo(DVec3d::UnitX()))
+			//LineHandler* _line_handlerP = dynamic_cast<LineHandler*>(_ele.GetDisplayHandler());
+			//if (nullptr == _line_handlerP) continue;
+			//CurveVectorPtr _linecv;
+			//_line_handlerP->GetCurveVector(_ele, _linecv);
+			//DVec3d _lineVector;
+			//DPoint3d _lineStartPoint;
+			//_linecv->GetStartEnd(_lineStartPoint, DPoint3d(), _lineVector, DVec3d());
+			//if (_lineVector.IsParallelTo(DVec3d::UnitX()))
+			//{
+			//	_yrange.insert(_lineStartPoint.y);
+			//}
+			//else if (_lineVector.IsParallelTo(DVec3d::UnitY()))
+			//{
+			//	_xrange.insert(_lineStartPoint.x);
+			//}
+			_GetGridXYRange_ProcessLineEle(_xrange, _yrange, _ele);
+		}
+		else if (_ele.GetElementType() == SHAPE_ELM)
+		{
+			DisplayHandlerP _displayHandle = dynamic_cast<DisplayHandlerP>(_ele.GetDisplayHandler());
+			if(nullptr == _displayHandle) continue;
+			ElementAgenda _shapeeleagd;
+			DropGeometryPtr _shapedg = DropGeometry::Create();
+			_shapedg->SetOptions(DropGeometry::Options::OPTION_LinearSegments);
+			_displayHandle->Drop(_ele, _shapeeleagd, *_shapedg);
+			for (auto _subele : _shapeeleagd)
 			{
-				_yrange.insert(_lineStartPoint.y);
-			}
-			else if (_lineVector.IsParallelTo(DVec3d::UnitY()))
-			{
-				_xrange.insert(_lineStartPoint.x);
+				_GetGridXYRange_ProcessLineEle(_xrange, _yrange, _subele);
 			}
 		}
 	}
+}
+
+void CreateTableTool::_GetGridXYRange_ProcessLineEle(bstdset<double>& _xrange, bstdset<double>& _yrange, ElemAgendaEntry & _ele)
+{
+	LineHandler* _line_handlerP = dynamic_cast<LineHandler*>(_ele.GetDisplayHandler());
+	if (nullptr == _line_handlerP) return;
+	CurveVectorPtr _linecv;
+	_line_handlerP->GetCurveVector(_ele, _linecv);
+	DVec3d _lineVector;
+	DPoint3d _lineStartPoint;
+	_linecv->GetStartEnd(_lineStartPoint, DPoint3d(), _lineVector, DVec3d());
+	if (_lineVector.IsParallelTo(DVec3d::UnitX()))
+	{
+		_yrange.insert(_lineStartPoint.y);
+	}
+	else if (_lineVector.IsParallelTo(DVec3d::UnitY()))
+	{
+		_xrange.insert(_lineStartPoint.x);
+	}
+
+	//delete _line_handlerP;
 }
 
 // 将单元格行列数与单元格【起始索引为1,1】在二维空间中的范围联系起来
@@ -115,14 +160,14 @@ void CreateTableTool::_GetGridCellInfo(bvector<TabelCellInfo>& _tablecellsinfo, 
 	bvector<double> _xrangevector(_xrange.begin(), _xrange.end());
 	bvector<double> _yrangevector(_yrange.rbegin(), _yrange.rend());
 
-	size_t _totalrownum = _xrange.size() - 1;
-	size_t _totalcolnum = _yrange.size() - 1;
+	size_t _totalrownum = _yrange.size() - 1;
+	size_t _totalcolnum = _xrange.size() - 1;
 
 	for (size_t _row = 0; _row < _totalrownum; _row++)
 	{
 		for (size_t _col = 0; _col < _totalcolnum; _col++)
 		{
-			TabelCellInfo _cell = { _row + 1,_col + 1,DRange2d::From(_xrangevector[_row],_yrangevector[_col + 1],_xrangevector[_row + 1],_yrangevector[_col]),L"" };
+			TabelCellInfo _cell = { _row ,_col,DRange2d::From(_xrangevector[_col],_yrangevector[_row + 1],_xrangevector[_col + 1],_yrangevector[_row]),L"" };
 			_tablecellsinfo.push_back(_cell);
 		}
 	}
@@ -170,41 +215,21 @@ void CreateTableTool::_SetupAndPromptForNextAction()
 	mdlOutput_rscPrintf(MSG_PROMPT, NULL, STRINGLISTID_Prompts, msgId);
 }
 
-//bool CreateTableTool::_FilterAgendaEntries()
-//{
-//
-//	bool changed = false;
-//	ElementAgendaR agd = GetElementAgenda();
-//	//mdlDialog_dmsgsPrint(WPrintfString(L"Before Filter: The agenda number is %d", agd.GetCount()).c_str());
-//
-//	ElementAgenda::iterator itr = agd.begin();
-//	while (itr!= agd.end())
-//	{
-//		int eleType = itr->GetElementType();
-//		if (eleType == TEXT_ELM || eleType == TEXT_NODE_ELM)
-//		{
-//			++itr;
-//		}
-//		else
-//		{
-//			itr = agd.erase(itr);
-//			changed = true;
-//		}
-//	}
-//	return changed;	
-//}
 
 bool CreateTableTool::_OnModifyComplete(DgnButtonEventCR ev)
 {
-
+	WString _activefilename = BeFileName::GetFileNameWithoutExtension(ACTIVEMODEL->GetDgnFileP()->GetFileName().GetWCharCP())  ;
+	WCharCP _activemodelname = ACTIVEMODEL->GetDgnModelP()->GetModelName();
+	WPrintfString _defaultexcelname(L"%s-%s-OutTable", _activefilename, _activemodelname);
 	BeFileName _outexclfile;
-	if (FALSE == mdlDialog_fileCreate(_outexclfile, 0, 0, L"OutTable", L"*.xlsx,*.*", nullptr, L"输入要导出的文件名"))
+	if (FALSE == mdlDialog_fileCreate(_outexclfile, 0, 0, _defaultexcelname.GetWCharCP(), L"*.xlsx,*.*", nullptr, L"输入要导出的文件名"))
 	{
 		//mdlDialog_dmsgsPrint(outcsvFile.c_str());
-		_OutputTable(_outexclfile.c_str());
-		mdlOutput_messageCenter(OutputMessagePriority::Info, WPrintfString(L"%s 创建成功!", _outexclfile), WPrintfString(L"%s 创建成功!", _outexclfile), OutputMessageAlert::None);
+		if (_OutputTable(_outexclfile.c_str()))
+			mdlOutput_messageCenter(OutputMessagePriority::Error, WPrintfString(L"%s 创建失败!", _outexclfile), WPrintfString(L"%s 创建失败!", _outexclfile), OutputMessageAlert::Balloon);
+		else
+			mdlOutput_messageCenter(OutputMessagePriority::Info, WPrintfString(L"%s 创建成功!", _outexclfile), WPrintfString(L"%s 创建成功!", _outexclfile), OutputMessageAlert::None);
 	}
-
 
 	return __super::_OnModifyComplete(ev);
 }
